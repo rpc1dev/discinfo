@@ -1,2 +1,5 @@
+- 12.01.2003 - version 1.0.1
+Fixed a bug when you save to file and only have one CD/DVD device. It would put the spliting string on the top. This is now fixed. 
+
 - 11.01.2003 - version 1.0
 First release...
