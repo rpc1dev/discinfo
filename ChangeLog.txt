@@ -1,3 +1,14 @@
+- 25.06.2003 - version 1.5.0
+Added SPTI support for NT based operating system.
+Added SPTI/ASPI menu change option to select one of the access drives if available in the system.
+Added refresh menu option wich refreshes all the information (useful when plugging external drives to recognise them without rerunning the program again).
+Added screenshots option to save the program window into PNG image file (for main window and capability page).
+Added summary page wich shows all the details about a drive in a text field.
+Added new Toshiba drive model recognition (SD-R6012, SD-C2412,...).
+Fixed a bug with Toshiba drive recognition if the drive was not really a Toshiba.
+Improved SCSI drive detection (it's much faster now) and ability to view capabilities for those drives.
+Improved capabilities page with new detection of +R(W) standard and other stuff wich are possible to read from the drives.
+
 - 27.03.2003 - version 1.2.5
 Fixed displaying the program window on a systems with multimonitor enviroment.
 Improved Toshiba DVD drive detection (thanks to Joebar for the info).

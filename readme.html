@@ -6,17 +6,28 @@
 <span style='font-family:Verdana'><div style="text-align:justify">
 <center><font size="+3"><a name=Top></a><b>DISCInfo</font><br><i>(DVD-IDE-SCSI-CD Information Program)</i></b>
 <br><br><i>Made by <a href=http://forum.firmware-flash.com/profile.php?mode=viewprofile&u=2>Hijacker</a></i>
-<br>Last update: 27.03.2003</center><br><br>
+<br>Last update: 25.06.2003</center><br><br>
 <font size="+2"><b>Index:</b></font><br><br>
 o <a href="#History">History</a><br>
 o <a href="#Download">Download</a><br>
 o <a href="#About">About this program</a><br>
 o <a href="#Howto">How to</a><br>
 o <a href="#Reports">Saved reports for CD/DVD drives</a><br>
+o <a href="#Screens">Screenshots</a><br>
 o <a href="#FAQ">FAQ</a><br>
 o <a href="#Credits">Credits</a><br>
 o <a href="#Donate">Donations</a><br><br>
 <font size="+2"><a name=History></a><b>History:</b></font><br><br>
+<b>- 25.06.2003 - version 1.5.0</b><br>
+Added SPTI support for NT based operating system.<br>
+Added SPTI/ASPI menu change option to select one of the access drives if available in the system.<br>
+Added refresh menu option wich refreshes all the information (useful when plugging external drives to recognise them without rerunning the program again).<br>
+Added screenshots option to save the program window into PNG image file (for main window and capability page).<br>
+Added summary page wich shows all the details about a drive in a text field.<br>
+Added new Toshiba drive model recognition (SD-R6012, SD-C2412,...).<br>
+Fixed a bug with Toshiba drive recognition if the drive was not really a Toshiba.<br>
+Improved SCSI drive detection (it's much faster now) and ability to view capabilities for those drives.<br>
+Improved capabilities page with new detection of +R(W) standard and other stuff wich are possible to read from the drives.<br><br>
 <b>- 27.03.2003 - version 1.2.5</b><br>
 Fixed displaying the program window on a systems with multimonitor enviroment.<br>
 Improved Toshiba DVD drive detection (thanks to Joebar for the info).<br>
@@ -32,34 +43,122 @@ Fixed a bug when you save to file and only have one CD/DVD device. It would put 
 First release...
 <br><br>
 <font size="+2"><a name=Download></a><b>Download:</b></font><br><br>
-o <a href=http://hijacker.rpc1.org/discinfo/DISCInfo125.zip>DISCInfo 1.2.5</a> (<a href=http://www.dvd-supply.com/lib/dvdsupply/DISCInfo125.zip>mirror</a> provided by <a href="http://store.yahoo.com/cgi-bin/clink?dvdsupply+HgqATs+index.html">DVD-Supply.com</a>)<br>
+o <a href=http://hijacker.rpc1.org/discinfo/DISCInfo150.zip>DISCInfo 1.5.0</a> (<a href=http://www.dvd-supply.com/lib/dvdsupply/DISCInfo150.zip>mirror</a> provided by <a href="http://store.yahoo.com/cgi-bin/clink?dvdsupply+HgqATs+index.html">DVD-Supply.com</a>)<br>
 o <a href=http://hijacker.rpc1.org/discinfo/aspi32v4.60.zip>ASPI layer drives 4.60 Win9x/Me/2k/XP</a><br>
 <br><br>
 <font size="+2"><a name=About></a><b>About this program:</b></font><br><br>
-DISCInfo is a program to display hardware informations from and IDE/SCSI device under Windows operating system. Basicly what it does it that it sends SCSI commands to the device and retrives the information from them. The most usefull thing of the program is to show usefull informations about a DVD-ROM devices. It can check current region status. If the drive is region free it will state No Lock Detected but if the drive has region protection (RPC-2) it will show you the currect settings, like how many changes are left and curently set region. With the latest version program is also capable of using identified info about a CD/DVD drive to pass parameters to main firmware page and look for the firmware update files on it.
+DISCInfo is a <b>freeware</b> program to display hardware informations from and ATAPI/SCSI device under Windows operating system. Basicly what it does it that it sends SCSI commands to the device and retrives the information from them. The most usefull thing of the program is to show usefull informations about a DVD-ROM devices. It can check current region status. If the drive is region free it will state No Lock Detected but if the drive has region protection (RPC-2) it will show you the currect settings, like how many changes are left and curently set region. With the latest version program is also capable of using identified info about a CD/DVD drive to pass parameters to main firmware page and look for the firmware update files on it. It can recognise external USB/Firewire HDD/CD/DVD devices (SPTI access only) and for easy sharing of the files it enabled grabing the screenshots of the program and internaly save them to a file without any extra image manipulation tools.
 <br><br>
 <font size="+2"><a name=Howto></a><b>How to:</b></font><br><br>
-It's extremly easy to use the program so I do not think any explanations are required but if you have problems with it tell it to me and I will explain it in here with more details...<br><br>Just to worm up the crowd here are the keyboard shortcuts I've put inside the program:<br>
-<b>- D or CTRL+D: Show All Devices - </b>This refreshes the program to display all the IDE/SCSI devices inside the system and not only CD or DVD drives. Press D or CTRL+D to show back only CD/DVD drives.<br>
-<b>- C or CTRL+C: Capabilities Info - </b>Displays a capabilities page for a CD or DVD drive only. In that page you can see what a drive is capable of reading or writing. This command only works for CD or DVD drives.<br>
-<b>- F or CTRL+F: Firmware Update - </b>Displays a firmware update page for a CD or DVD drive only. In that page you can choose with wich parameters you wish to search. This command only works for CD or DVD drives. It uses <a href="http://www.rpc1.org" target=_blank>main firmware page</a> database data wich Arzeno fills up as much as he can.<br>
+<font size="+1"><a name=Howto></a><b>SPTI/ASPI access</b></font><br><br>
+Since the version 1.5.0 the program can use two diffrent ways of contacting the drives for into. Please read this explanation carefully:<br><br>
+<b>SPTI</b>:<br>
+If I check the access log files for this page I can see that over 90% of all users are using NT based operating systems, wich include M$ Windows NT,2000,XP or 2003. Under this operating systems M$ added SPTI (Scsi Pass Through Interface) drive access wich basicly means that you can easily communicate with the drives without the need of any other drivers. DISCInfo now fully supports it. There are some things you all need to know about it.<br>
+First of all SPTI <b>only works if the logged in user who runs DISCInfo has administrator rights</b>. DISCInfo checks for this and if it can't find any drives you will get an error message. Relogin with a user that has administrator right or install ASPI wich works under nonadmin users.<br>
+Second most important thing about SPTI is that the communication between drives and DISCInfo can be intercepted by other programs and therefore fool the DISCInfo by showing incorrect informations. The best example of a program that can fool DISCInfo is Region Killer made by Elby company wich is used for bypassing the windows region protection and fooling software DVD player that the current inserted media is the one that player expects it to be. This is best seen on the RPC-1 (region free) DVD-ROM drives that, if the Region Killer is running, in DISCInfo shows them as RPC-2 drives. So in order to get the proper informations from the drives under SPTI access, <b>disable programs like Region Killer!</b>.<br><br>
+<b>ASPI</b>:<br>
+Driver originaly written by Adaptec. There isn't much to say about it. It works under all Windows operating system. I'd recommend using version 4.60 wich you can find under download. You need ASPI driver installed if you have operating system like Windows 98 otherwise DISCInfo will not work. It can also work on Windows NT or newer and if you have it installed then you can select SPTI or ASPI under the DISCInfo menus. <b>ASPI doesn't work for external drives like the USB/Firewire ones</b>. So if you have them and use Windows 98 you will not be able to see them. Also program like Region Killer can in some cases fool DISCInfo with ASPI access to show incorrect RPC informations. It's advise to disable programs like that before running DISCInfo.
+<br><br>
+DISCInfo will atumaticly detect operating system and check for APSI driver. Under NT based OS it will automaticly try to use SPTI access but if ASPI is installed you will be able to switch to it later from the menu. If you have Windows 98 operating system then ASPI driver is urgently required and if you don't have it the program will not run and exit with an error message. Here are the keyboard shortcuts curently working if you press them on the main program view:<br><br>
+
 <b>- S or CTRL+S: Save CD/DVD Info - </b>Shows a save window wich will save the informations about CD/DVD drives into a file.<br>
-<b>- A or CTRL+A: About Box - </b>Display a nicely made About box ;o).<br>
+<b>- G or CTRL+G: Grab Screenshot- </b>Takes a screenshot of the main window and displays a save dialog to save it to a file.<br>
+<b>- D or CTRL+D: Show All Devices - </b>This refreshes the program to display all the ATAPI/SCSI devices inside the system and not only CD or DVD drives. Press D or CTRL+D to show back only CD/DVD drives.<br>
+<b>- C or CTRL+C: Capabilities Info - </b>Displays a capabilities page for a CD or DVD drive only. In that page you can see what a drive is capable of doing. This command only works for CD or DVD drives. You can also take a screenshot of it by pressing Take Screenshot button on that window.<br>
+<b>- F or CTRL+F: Firmware Update - </b>Displays a firmware update page for a CD or DVD drive only. In that page you can choose with wich parameters you wish to search. This command only works for CD or DVD drives. It uses <a href="http://www.rpc1.org" target=_blank>main firmware page</a> database data wich Arzeno fills up as much as he can.<br>
+<b>- A or CTRL+A: About DISCInfo - </b>Display a nice about window with my thanks to the one who helped with the program.<br>
 <b>- X or CTRL+X or ESCAPE: Program exit - </b>To close the program.<br><br>
+Also in the menu is the ability to change the access drive wich will be used to communicate with the drives. You can select ASPI or SPTI access. If either one of them is not avaible it will be grayed out and you will not be able to select it. There is also an option there to refresh all the drives again. When selected it will start to query the drives again with the curently selected access driver.<br><br>
 <b>Firmware Search option</b><br><br>
-Info that vendors burn into the firmware/drive can be different that the one written on the box when you buy them. This is usualy the problem with OEM drives. So program could identify the drive as IDE DVD-ROM 16X or something like this while the drive is actualy something else. Search will definetly return no results in this case. There is nothing I can do about it. Also lot of people have Virtual drives installed, like Nero VD, CloneCD VD, Daemon Tools,... Since my program can also identify them it's pointless to search firmwares for them.<br>
+
+Info that vendors burn into the firmware/drive can be diffrent that the one written on the box when you buy them. This is usualy the problem with OEM drives. So program could identify the drive as IDE DVD-ROM 16X or something like this while the drive is actualy something else. Search will definetly return no results in this case. There is nothing I can do about it. Also lot of people have Virtual drives installed, like Nero VD, CloneCD VD, Daemon Tools,... Since my program can also identify them it's pointless to search firmwares for them.<br>
 Another thing are the vendor names. The search window has two options. One is Vendor and one is Model. Both are read from within a drive. It may not be the same as the ones we have written in the database. I would advise to search only by model. Will be more precise. Also note that you need a web browser because program display a web page with the results seperatly from the program itself (it opens a browser window to tell it simply :o)).
 <br><br>
 <font size="+2"><a name=Reports></a><b>Saved reports for CD/DVD drives:</b></font><br><br>
 You can save the information about your CD/DVD drives into a file. Just do a <b>File->Save CD/DVD Info</b> from the menu and type in a name for the file. Please <a href="mailto:hijacker@firmware-flash.com?Subject=DISCInfo Report File">send me this files</a>. I will make a big internet database for the CD/DVD drives out of them. I have allready done the same for my <a href="http://forum.firmware-flash.com/toshiba.php">Toshiba Revision Check</a> program from the files users send me. The same I plan to do with DISCInfo program.<br>
 Still need to make proper web script for it but you can allready send me the files. Thanks.
 <br><br>
+<font size="+2"><a name=Screens></a><b>Screenshot:</b></font><br><br>
+Some screenshots of the program. All taken on my two computers, except for the Pioneer DVR-106 wich was sent to me by <b>FLASHMAN</b>:<br><br>
+<table border="2">
+<tr>
+	<td><center><b>Toshiba DVD drive (RPC-1):</b></center></td>
+	<td><center><b>Lite-On CDRW drive:</b></center></td>
+<tr>
+<tr>
+	<td><center><img src=./images/toshiba.png></center></td>
+	<td><center><img src=./images/liteon.png></center></td>
+<tr>
+</table><br>
+<table border="2">
+<tr>
+	<td><center><b>Virtual DVD drive:</b></center></td>
+	<td><center><b>My Maxtor Hard Drive:</b></center></td>
+<tr>
+<tr>
+	<td><center><img src=./images/virtual.png></center></td>
+	<td><center><img src=./images/maxtor.png></center></td>
+<tr>
+</table><br>
+<table border="2">
+<tr>
+	<td><center><b>My Pioneer DVR-105:</b></center></td>
+	<td><center><b>Flashmans Pioneer DVR-106:</b></center></td>
+<tr>
+<tr>
+	<td><center><img src=./images/pioneer.png></center></td>
+	<td><center><img src=./images/pioneer106.png></center></td>
+<tr>
+</table><br>
+<table border="2">
+<tr>
+	<td><center><b>Capatibilities for Pioneer DVR-106:</b></center></td>
+	<td><center><b>Capatibilities for my LiteOn:</b></center></td>
+<tr>
+<tr>
+	<td><center><img src=./images/pioneer106capable.png></center></td>
+	<td><center><img src=./images/liteoncapable.png></center></td>
+<tr>
+</table><br>
+<table border="2">
+<tr>
+	<td><center><b>My USB Thumbdrive:</b></center></td>
+	<td><center><b>Old Yamaha SCSI burner:</b></center></td>
+<tr>
+<tr>
+	<td><center><img src=./images/thumbdrive.png></center></td>
+	<td><center><img src=./images/yamaha.png></center></td>
+<tr>
+</table><br>
+<table border="2">
+<tr>
+	<td><center><b>Toshiba search window:</b></center></td>
+	<td><center><b>LiteOn search window:</b></center></td>
+<tr>
+<tr>
+	<td><center><img src=./images/toshibasearch.png></center></td>
+	<td><center><img src=./images/liteonsearch.png></center></td>
+<tr>
+</table>
+<br><br>
 <font size="+2"><a name=FAQ></a><b>FAQ:</b></font><br><br>
 Q: <b>I get an ASPI error.</b><br>
 A: <i>Just as the errors say. You need ASPI drivers in order to run this program. You can download them under <a href="#Download">download</a> section.</i>
 <br><br>
-Q: <b>The informations I get are completly wrong!!!</b><br>
+Q: <b>I get an error about that I have to have administrator rights.</b><br>
+A: <i>You have NT based OS installed and no ASPI drivers. Either install ASPI drivers or log in as a user who has administrator rights</i>
+<br><br>
+Q: <b>The RPC informations I get are completly wrong.</b><br>
 A: <i>Yes. This could happen. Number one reason is that you have a little program called Region Killer running in the background. That program is soo good in fooling program to belive that they are region protected. And it also fools my program. Disable it before running DISCInfo.</i>
+<br><br>
+Q: <b>The reported max read and write speed is totay incorrect.</b><br>
+A: <i>Two reasons why this could happen. Number one is that you have a media inside the drive. Eject any media and try again. Other reason is that the drive doesn't responds to the command correcly. Nothing you can do about it.</i>
+<br><br>
+Q: <b>My drive can read more that it shows in capabilities page.</b><br>
+A: <i>It's possible. Who said you can trust manufactors? They can put whatever info they want inside the drives. The best example is Toshiba. Their desktop DVD-ROM drives can all read +R(W) standard but DISCInfo identifies that it can't. Why is that you say? Simple. Toshiba officialy supports only -R(W) standard but because they made drives for OEM market they also have to add the ability to read +R(W) media. So the drive can read +R standard it just doesn't show that in DISCInfo capabilites info. Same can happen with other drives.</i>
+<br><br>
+Q: <b>I don't see any capabilities for the CD/DVD drives.</b><br>
+A: <i>The only reasons is that the drive doesn't responds to the standard MMC commands. Either the drive is too old or it's not build by MMC specifications. Drives like that are rare. I only found two so far. Some SCSI changer and a SCSI Teac 32x CD-ROM.</i>
 <br><br>
 Q: <b>How does your program work?</b><br>
 A: <i>It sends some commands to the drive and shows the informations that the drive returns back in a way that anyone can understand them. Simple as that.</i>
@@ -68,10 +167,10 @@ Q: <b>Do I have to pay for this program?</b><br>
 A: <i>Nope. Never. Program if freeware. But you can donate some money to us to keep the firmware page alive.</i>
 <br><br>
 Q: <b>I have found a bug! What can I do about it?</b><br>
-A: <i>Great! I love bugs. What are you waiting for and loosing time? <a href="mailto:hijacker@firmware-flash.com?Subject=DISCInfo Bug Report">Email me</a> about it and I will try to fix it ASAP.</i>
+A: <i>Great! I love bugs. What are you waiting for and loosing time? <a href="mailto:hijacker@rpc1.org?Subject=DISCInfo Bug Report">Email me</a> about it and I will try to fix it ASAP.</i>
 <br><br>
 Q: <b>In what operating systems the program works?</b><br>
-A: <i>Has been tested on Windows 98 and Windows XP. Should work on all windows version as long as ASPI drivers are installed.</i>
+A: <i>Has been tested on Windows 98, Windows NT, Windows 2000 and Windows XP. Should work on all windows version as long as ASPI drivers are installed or you have a NT based OS.</i>
 <br><br>
 Q: <b>The search updates finds nothing?</b><br>
 A: <i>If it's a OEM drive then don't expect it to find anything. If it's not then make sure you check only model. If that also returns no results then use the <a href=http://forum.rpc1.org/dl_search.php _target=blank>search page</a> directly. Not that the database is written by hand buy our trusty admin Arzeno and may not be complet and up to date.</i>
@@ -79,9 +178,10 @@ A: <i>If it's a OEM drive then don't expect it to find anything. If it's not the
 <font size="+2"><a name=Credits></a><b>Credits:</b></font><br><br>
 - Big thanks a stubborn old bastard :o) He knows who he is...<br>
 - Thanks to friends on the firmware page: <b>Arzeno</b>, <b>>NIL:</b>, <b>dhc014</b>, <b>FLASHMAN</b><br>
+- Thanks to <b>nicw</b> (author of the DVDInfo program)<br>
 - Thanks to <b>Klaus Jensen</b> (author of the CDVDInfo program)<br>
 - Thanks to <b>Cigo</b> who helped me fix some initial bugs<br>
-- Thanks to <b>Samppa</b> for helping me test the search firmware option<br>
+- Thanks to <b>Samppa</b> for helping me test the search firmware option and Mt. Rainer capability<br>
 - And all the testers who dared to test my beta versions ;o)<br><br>
 <font size="+2"><a name=Donate></a><b>Donations:</b></font><br><br>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post"> 

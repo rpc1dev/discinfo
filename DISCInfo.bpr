@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- C++Builder XML Project -->
+<PROJECT>
+  <MACROS>
+    <VERSION value="BCB.06.00"/>
+    <PROJECT value="DISCInfo.exe"/>
+    <OBJFILES value="DISCInfo.obj CDVDMain.obj Aspi.obj Device.obj StdAfx.obj About.obj 
+      Extra.obj Searchf.obj Summary.obj"/>
+    <RESFILES value="DISCInfo.res"/>
+    <IDLFILES value=""/>
+    <IDLGENFILES value=""/>
+    <DEFFILE value=""/>
+    <RESDEPEN value="$(RESFILES) CDVDMain.dfm About.dfm Extra.dfm Searchf.dfm Summary.dfm"/>
+    <LIBFILES value=""/>
+    <LIBRARIES value="versioninfo.lib pnglib.lib rtl.lib vcl.lib"/>
+    <SPARELIBS value="vcl.lib rtl.lib pnglib.lib versioninfo.lib"/>
+    <PACKAGES value="vcl.bpi rtl.bpi dbrtl.bpi adortl.bpi vcldb.bpi vclx.bpi bdertl.bpi 
+      ibxpress.bpi dsnap.bpi cds.bpi bdecds.bpi qrpt.bpi visualclx.bpi 
+      visualdbclx.bpi dsnapcrba.bpi dsnapcon.bpi bcbsmp.bpi vclie.bpi xmlrtl.bpi 
+      inet.bpi inetdbbde.bpi inetdbxpress.bpi nmfast.bpi webdsnap.bpi bcbie.bpi 
+      websnap.bpi soaprtl.bpi dclocx.bpi dbexpress.bpi dbxcds.bpi indy.bpi 
+      bcb2kaxserver.bpi vcl.bpi"/>
+    <PATHCPP value=".;"/>
+    <PATHPAS value=".;"/>
+    <PATHRC value=".;"/>
+    <PATHASM value=".;"/>
+    <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
+    <RELEASELIBPATH value="$(BCB)\lib\release"/>
+    <LINKER value="ilink32"/>
+    <USERDEFINES value="_DEBUG"/>
+    <SYSDEFINES value="NO_STRICT"/>
+    <MAINSOURCE value="DISCInfo.cpp"/>
+    <INCLUDEPATH value="..\..\Examples\Controls\VersionInfo;$(BCB)\Projects;$(BCB)\Projects\DISCInfo;$(BCB)\include;$(BCB)\include\vcl"/>
+    <LIBPATH value="..\..\Examples\Controls\VersionInfo;$(BCB)\Projects\Lib;$(BCB)\Projects;$(BCB)\Projects\DISCInfo;$(BCB)\lib\obj;$(BCB)\lib"/>
+    <WARNINGS value="-w-par"/>
+    <OTHERFILES value=""/>
+  </MACROS>
+  <OPTIONS>
+    <IDLCFLAGS value="-I..\..\Examples\Controls\VersionInfo -I$(BCB)\Projects 
+      -I$(BCB)\Projects\DISCInfo -I$(BCB)\include -I$(BCB)\include\vcl 
+      -src_suffix cpp -D_DEBUG -boa"/>
+    <CFLAG1 value="-Od -H=$(BCB)\lib\vcl60.csm -Hc -Vx -Ve -X- -r- -a8 -b- -k -y -v -vi- -c 
+      -tW -tWM"/>
+    <PFLAGS value="-$YD -$W -$O- -$A8 -v -JPHNE -M"/>
+    <RFLAGS value=""/>
+    <AFLAGS value="/mx /w2 /zd"/>
+    <LFLAGS value="-D&quot;&quot; -aa -Tpe -x -Gn -v"/>
+    <OTHERFILES value=""/>
+  </OPTIONS>
+  <LINKER>
+    <ALLOBJ value="c0w32.obj sysinit.obj $(OBJFILES)"/>
+    <ALLRES value="$(RESFILES)"/>
+    <ALLLIB value="$(LIBFILES) $(LIBRARIES) import32.lib cp32mt.lib"/>
+    <OTHERFILES value=""/>
+  </LINKER>
+  <FILELIST>
+      <FILE FILENAME="DISCInfo.res" FORMNAME="" UNITNAME="DISCInfo.res" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="DISCInfo.cpp" FORMNAME="" UNITNAME="DISCInfo" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="CDVDMain.cpp" FORMNAME="Main_Form" UNITNAME="CDVDMain" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="Aspi.cpp" FORMNAME="" UNITNAME="CDVDMain" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="Device.cpp" FORMNAME="" UNITNAME="CDVDMain" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="StdAfx.cpp" FORMNAME="" UNITNAME="CDVDMain" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="About.cpp" FORMNAME="About_Box" UNITNAME="About" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="Extra.cpp" FORMNAME="Extra_Box" UNITNAME="Extra" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="Searchf.cpp" FORMNAME="Search_Box" UNITNAME="Searchf" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="Summary.cpp" FORMNAME="SumInfo" UNITNAME="Summary" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+  </FILELIST>
+  <BUILDTOOLS>
+  </BUILDTOOLS>
+
+  <IDEOPTIONS>
+[Version Info]
+IncludeVerInfo=1
+AutoIncBuild=1
+MajorVer=1
+MinorVer=5
+Release=0
+Build=7
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=1060
+CodePage=1250
+
+[Version Info Keys]
+CompanyName=Hijacker d.o.o.
+FileDescription=Informations about IDE/SCSI devices
+FileVersion=1.5.0.7
+InternalName=
+LegalCopyright=Hijacker inc
+LegalTrademarks=
+OriginalFilename=
+ProductName=
+ProductVersion=1.0.0.0
+Comments=
+
+[Excluded Packages]
+d:\cbuilder6\Bin\dclite60.bpl=Borland Integrated Translation Environment
+
+[HistoryLists\hlIncludePath]
+Count=2
+Item0=..\..\Examples\Controls\VersionInfo;$(BCB)\Projects;$(BCB)\Projects\DISCInfo;$(BCB)\include;$(BCB)\include\vcl
+Item1=$(BCB)\Projects;$(BCB)\Projects\DISCInfo;$(BCB)\include;$(BCB)\include\vcl
+
+[HistoryLists\hlLibraryPath]
+Count=3
+Item0=..\..\Examples\Controls\VersionInfo;$(BCB)\Projects\Lib;$(BCB)\Projects;$(BCB)\Projects\DISCInfo;$(BCB)\lib\obj;$(BCB)\lib
+Item1=$(BCB)\Projects\Lib;$(BCB)\Projects;$(BCB)\Projects\DISCInfo;$(BCB)\lib\obj;$(BCB)\lib
+Item2=$(BCB)\Projects;$(BCB)\Projects\DISCInfo;$(BCB)\lib\obj;$(BCB)\lib
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlConditionals]
+Count=1
+Item0=_DEBUG
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=
+Launcher=
+UseLauncher=0
+DebugCWD=
+HostApplication=
+RemoteHost=
+RemotePath=
+RemoteLauncher=
+RemoteCWD=
+RemoteDebug=0
+
+[Compiler]
+ShowInfoMsgs=0
+LinkDebugVcl=0
+LinkCGLIB=0
+
+[CORBA]
+AddServerUnit=1
+AddClientUnit=1
+PrecompiledHeaders=1
+  </IDEOPTIONS>
+</PROJECT>

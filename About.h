@@ -1,24 +1,22 @@
 //---------------------------------------------------------------------------
 
-#ifndef dvdcdinfoH
-#define dvdcdinfoH
+#ifndef AboutH
+#define AboutH
 //---------------------------------------------------------------------------
 #include <Classes.hpp>
 #include <Controls.hpp>
 #include <StdCtrls.hpp>
 #include <Forms.hpp>
 #include <ExtCtrls.hpp>
-#include "SHDocVw_OCX.h"
-#include <OleCtrls.hpp>
-#include <Menus.hpp>
-#include <Dialogs.hpp>
+#include <Buttons.hpp>
+#include <Graphics.hpp>
 //---------------------------------------------------------------------------
-class TForm1 : public TForm
+class TAbout_Box : public TForm
 {
 __published:	// IDE-managed Components
         TPanel *Panel1;
-        TComboBox *ComboBox1;
-        TPanel *Panel2;
+        TGroupBox *GroupBox1;
+        TBitBtn *BitBtn1;
         TLabel *Label1;
         TLabel *Label2;
         TLabel *Label3;
@@ -29,31 +27,24 @@ __published:	// IDE-managed Components
         TLabel *Label8;
         TLabel *Label9;
         TLabel *Label10;
-        TLabel *Label11;
-        TLabel *Label12;
-        TLabel *Label13;
-        TLabel *Label14;
-        TSaveDialog *SaveDialog1;
-        TMainMenu *MainMenu1;
-        TMenuItem *Files1;
-        TMenuItem *SaveInfo1;
-        TMenuItem *eXit1;
-        TMenuItem *About1;
-        TStaticText *StaticText1;
-        TStaticText *StaticText2;
-        TLabel *Label15;
-        TLabel *Label16;
+        TPanel *Panel2;
+        TPanel *Panel3;
+        TPanel *Panel4;
+        TPanel *Panel5;
+    TImage *Image1;
+    TGroupBox *GroupBox2;
+        void __fastcall About_CloseClick(TObject *Sender);
         void __fastcall FormCreate(TObject *Sender);
-        void __fastcall EditCompo(TObject *Sender);
-        void __fastcall RunSaveDialog(TObject *Sender);
-        void __fastcall eXit1Click(TObject *Sender);
-        void __fastcall About1Click(TObject *Sender);
-       
+        void __fastcall Label3Click(TObject *Sender);
+        void __fastcall Label8Click(TObject *Sender);
+        void __fastcall Label5Click(TObject *Sender);
+    void __fastcall Image1Click(TObject *Sender);
+    void __fastcall BitBtn1KeyPress(TObject *Sender, char &Key);
 private:	// User declarations
 public:		// User declarations
-        __fastcall TForm1(TComponent* Owner);
+        __fastcall TAbout_Box(TComponent* Owner);
 };
 //---------------------------------------------------------------------------
-extern PACKAGE TForm1 *Form1;
+extern PACKAGE TAbout_Box *About_Box;
 //---------------------------------------------------------------------------
 #endif
