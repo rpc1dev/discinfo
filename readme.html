@@ -6,7 +6,7 @@
 <span style='font-family:Verdana'><div style="text-align:justify">
 <center><font size="+3"><a name=Top></a><b>DISCInfo</font><br><i>(DVD-IDE-SCSI-CD Information Program)</i></b>
 <br><br><i>Made by <a href=http://forum.firmware-flash.com/profile.php?mode=viewprofile&u=2>Hijacker</a></i>
-<br>Last update: 17.01.2003</center><br><br>
+<br>Last update: 27.03.2003</center><br><br>
 <font size="+2"><b>Index:</b></font><br><br>
 o <a href="#History">History</a><br>
 o <a href="#Download">Download</a><br>
@@ -17,6 +17,11 @@ o <a href="#FAQ">FAQ</a><br>
 o <a href="#Credits">Credits</a><br>
 o <a href="#Donate">Donations</a><br><br>
 <font size="+2"><a name=History></a><b>History:</b></font><br><br>
+<b>- 27.03.2003 - version 1.2.5</b><br>
+Fixed displaying the program window on a systems with multimonitor enviroment.<br>
+Improved Toshiba DVD drive detection (thanks to Joebar for the info).<br>
+Added the search firmware updates option wich uses main firmware page to look for them.<br>
+Added the firmware version text to the capabilities and search firmware window.<br><br>
 <b>- 17.01.2003 - version 1.2.0</b><br>
 Fixed the text corruption if the Toshiba drive was "SD-M1612 revB" or "SD-C2612".<br>
 Fixed improper showing of read/write speed if this information can't be read out of the drive.<br><br>
@@ -27,19 +32,23 @@ Fixed a bug when you save to file and only have one CD/DVD device. It would put 
 First release...
 <br><br>
 <font size="+2"><a name=Download></a><b>Download:</b></font><br><br>
-o <a href=http://www.firmware-flash.com/~hijacker/discinfo/DISCInfo120.zip>DISCInfo 1.2.0</a><br>
-o <a href=http://www.firmware-flash.com/~hijacker/discinfo/aspi32v4.60.zip>ASPI layer drives 4.60 Win9x/Me/2k/XP</a><br>
+o <a href=http://hijacker.rpc1.org/discinfo/DISCInfo125.zip>DISCInfo 1.2.5</a> (<a href=http://www.dvd-supply.com/lib/dvdsupply/DISCInfo125.zip>mirror</a> provided by <a href="http://store.yahoo.com/cgi-bin/clink?dvdsupply+HgqATs+index.html">DVD-Supply.com</a>)<br>
+o <a href=http://hijacker.rpc1.org/discinfo/aspi32v4.60.zip>ASPI layer drives 4.60 Win9x/Me/2k/XP</a><br>
 <br><br>
 <font size="+2"><a name=About></a><b>About this program:</b></font><br><br>
-DISCInfo is a program to display hardware informations from and IDE/SCSI device under Windows operating system. Basicly what it does it that it sends SCSI commands to the device and retrives the information from them. The most usefull thing of the program is to show usefull informations about a DVD-ROM devices. It can check current region status. If the drive is region free it will state No Lock Detected but if the drive has region protection (RPC-2) it will show you the currect settings, like how many changes are left and curently set region.
+DISCInfo is a program to display hardware informations from and IDE/SCSI device under Windows operating system. Basicly what it does it that it sends SCSI commands to the device and retrives the information from them. The most usefull thing of the program is to show usefull informations about a DVD-ROM devices. It can check current region status. If the drive is region free it will state No Lock Detected but if the drive has region protection (RPC-2) it will show you the currect settings, like how many changes are left and curently set region. With the latest version program is also capable of using identified info about a CD/DVD drive to pass parameters to main firmware page and look for the firmware update files on it.
 <br><br>
 <font size="+2"><a name=Howto></a><b>How to:</b></font><br><br>
 It's extremly easy to use the program so I do not think any explanations are required but if you have problems with it tell it to me and I will explain it in here with more details...<br><br>Just to worm up the crowd here are the keyboard shortcuts I've put inside the program:<br>
 <b>- D or CTRL+D: Show All Devices - </b>This refreshes the program to display all the IDE/SCSI devices inside the system and not only CD or DVD drives. Press D or CTRL+D to show back only CD/DVD drives.<br>
 <b>- C or CTRL+C: Capabilities Info - </b>Displays a capabilities page for a CD or DVD drive only. In that page you can see what a drive is capable of reading or writing. This command only works for CD or DVD drives.<br>
+<b>- F or CTRL+F: Firmware Update - </b>Displays a firmware update page for a CD or DVD drive only. In that page you can choose with wich parameters you wish to search. This command only works for CD or DVD drives. It uses <a href="http://www.rpc1.org" target=_blank>main firmware page</a> database data wich Arzeno fills up as much as he can.<br>
 <b>- S or CTRL+S: Save CD/DVD Info - </b>Shows a save window wich will save the informations about CD/DVD drives into a file.<br>
 <b>- A or CTRL+A: About Box - </b>Display a nicely made About box ;o).<br>
-<b>- X or CTRL+X or ESCAPE: Program exit - </b>To close the program.<br>
+<b>- X or CTRL+X or ESCAPE: Program exit - </b>To close the program.<br><br>
+<b>Firmware Search option</b><br><br>
+Info that vendors burn into the firmware/drive can be different that the one written on the box when you buy them. This is usualy the problem with OEM drives. So program could identify the drive as IDE DVD-ROM 16X or something like this while the drive is actualy something else. Search will definetly return no results in this case. There is nothing I can do about it. Also lot of people have Virtual drives installed, like Nero VD, CloneCD VD, Daemon Tools,... Since my program can also identify them it's pointless to search firmwares for them.<br>
+Another thing are the vendor names. The search window has two options. One is Vendor and one is Model. Both are read from within a drive. It may not be the same as the ones we have written in the database. I would advise to search only by model. Will be more precise. Also note that you need a web browser because program display a web page with the results seperatly from the program itself (it opens a browser window to tell it simply :o)).
 <br><br>
 <font size="+2"><a name=Reports></a><b>Saved reports for CD/DVD drives:</b></font><br><br>
 You can save the information about your CD/DVD drives into a file. Just do a <b>File->Save CD/DVD Info</b> from the menu and type in a name for the file. Please <a href="mailto:hijacker@firmware-flash.com?Subject=DISCInfo Report File">send me this files</a>. I will make a big internet database for the CD/DVD drives out of them. I have allready done the same for my <a href="http://forum.firmware-flash.com/toshiba.php">Toshiba Revision Check</a> program from the files users send me. The same I plan to do with DISCInfo program.<br>
@@ -64,11 +73,15 @@ A: <i>Great! I love bugs. What are you waiting for and loosing time? <a href="ma
 Q: <b>In what operating systems the program works?</b><br>
 A: <i>Has been tested on Windows 98 and Windows XP. Should work on all windows version as long as ASPI drivers are installed.</i>
 <br><br>
+Q: <b>The search updates finds nothing?</b><br>
+A: <i>If it's a OEM drive then don't expect it to find anything. If it's not then make sure you check only model. If that also returns no results then use the <a href=http://forum.rpc1.org/dl_search.php _target=blank>search page</a> directly. Not that the database is written by hand buy our trusty admin Arzeno and may not be complet and up to date.</i>
+<br><br>
 <font size="+2"><a name=Credits></a><b>Credits:</b></font><br><br>
-- Big thanks a stuborn old bastard :o) He knows who he is...<br>
-- Thanks to friends on the firmware page: Arzeno, >NIL:, dhc014, FLASHMAN<br>
-- Thanks to Klaus Jensen (author of the CDVDInfo program)<br>
-- Thanks to Cigo who helped me fix some bugs<br>
+- Big thanks a stubborn old bastard :o) He knows who he is...<br>
+- Thanks to friends on the firmware page: <b>Arzeno</b>, <b>>NIL:</b>, <b>dhc014</b>, <b>FLASHMAN</b><br>
+- Thanks to <b>Klaus Jensen</b> (author of the CDVDInfo program)<br>
+- Thanks to <b>Cigo</b> who helped me fix some initial bugs<br>
+- Thanks to <b>Samppa</b> for helping me test the search firmware option<br>
 - And all the testers who dared to test my beta versions ;o)<br><br>
 <font size="+2"><a name=Donate></a><b>Donations:</b></font><br><br>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post"> 

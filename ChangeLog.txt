@@ -1,3 +1,9 @@
+- 27.03.2003 - version 1.2.5
+Fixed displaying the program window on a systems with multimonitor enviroment.
+Improved Toshiba DVD drive detection (thanks to Joebar for the info).
+Added the search firmware updates option wich uses main firmware page to look for them.
+Added the firmware version text to the capabilities and search firmware window.
+
 - 17.01.2003 - version 1.2.0
 Fixed the text corruption if the Toshiba drive was "SD-M1612 revB" or "SD-C2612".
 Fixed improper showing of read/write speed if this information can't be read out of the drive.
