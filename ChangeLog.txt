@@ -1,3 +1,7 @@
+- 16.11.2003 - version 1.5.5
+Fixed an EAccessViolation bug.
+Added revision identification for Toshiba DVDR models such as SD-R6012, SD-R6112, SD-R5002 and SD-R5112.
+
 - 25.06.2003 - version 1.5.0
 Added SPTI support for NT based operating system.
 Added SPTI/ASPI menu change option to select one of the access drives if available in the system.
