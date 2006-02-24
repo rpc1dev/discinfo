@@ -1,3 +1,6 @@
+<?php 
+include("download.php");
+?>
 <html>
 <head>
 <title>DISCInfo -> DVD-IDE-SCSI-CD Information Program</title>
@@ -5,19 +8,48 @@
 <body>
 <span style='font-family:Verdana'><div style="text-align:justify">
 <center><font size="+3"><a name=Top></a><b>DISCInfo</font><br><i>(DVD-IDE-SCSI-CD Information Program)</i></b>
-<br><br><i>Made by <a href=http://forum.firmware-flash.com/profile.php?mode=viewprofile&u=2>Hijacker</a></i>
-<br>Last update: 16.11.2003</center><br><br>
+<br><br><i>Made by <a href=http://forum.rpc1.org/profile.php?mode=viewprofile&u=2>Hijacker</a></i>
+<br>Last update: 21.02.2006</center><br><br>
 <font size="+2"><b>Index:</b></font><br><br>
+o <a href="#News">News</a><br>
 o <a href="#History">History</a><br>
 o <a href="#Download">Download</a><br>
 o <a href="#About">About this program</a><br>
 o <a href="#Howto">How to</a><br>
-o <a href="#Reports">Saved reports for CD/DVD drives</a><br>
-o <a href="#Screens">Screenshots</a><br>
 o <a href="#FAQ">FAQ</a><br>
 o <a href="#Credits">Credits</a><br>
 o <a href="#Donate">Donations</a><br><br>
+<font size="+2"><a name=News></a><b>News:</b></font><br><br>
+<b>- 21.02.2006</b><br>
+Can't believe it's been that long since the last version of DISCInfo came out. And to this day it's still working, recognising drives for region protection and looking great ;). The program was mainly meant for Toshiba drive users to find out wich revision drives they have. Lately Toshiba stopped making their own DVD drives and made a deal with Samsung. They use different hardware so I can't read this new info out. It's not important anyway since now they add a letter to the model and make it new revision. But still, there are some old Toshiba drives that were not yet identified by DISCInfo, so it's time for new version. It's only a minor change since there isn't much I can improve. There are other tools to do that. I want it nice an simple.
+<br><br>
+Also would like to point out my new Toshiba firmware page located <a href="http://hijacker.rpc1.org/toshiba" target=_blank>here</a> with lots of latest firmwares for different Toshiba/Samsung models.<br><br>
+If you find any bugs, you know how to find me.
+<br><br>
+<b>- 16.11.2003</b><br>
+A long waited update wich fixes a <i>EAccessViolation</i> error message showing on some computers. I also added proper identification for all the latest Toshiba DVD models. Sorry it took such a long time but lately I was and still am, very busy.
+<br><br>
+<b>- 25.06.2003</b><br>
+Been a while since the last DISCInfo version was released. But for the last few weeks I've been working on a new version and I proud to present it for you all. This one finaly supports SPTI (Scsi Pass Through Interface) drive access wich means that ASPI layer is no more needed. The only downside of this is that SPTI only works in Windows NT based operating systems (NT/2k/XP/2k3) and you have to have administrator rights. Also keep in mind that programs like Region Killer can fool DISCInfo to report the wrong RPC drive status for DVDROM drives. Also with SPTI you can now get info from external drives like USB or Firewire ones.<br><br>
+I've also added a support to take screenshot within the program and save it to PNG image format. And now it can identify a lot more capabilities of a drive than before. Complete history what is new/imporved can be found under <a href="#History">History</a>. More datailed explanation of the new features is explained along the page. So please read it all to the bottom before you email me with questions about how/why/where this and that works.
+<br><br>
+A <b>HUGE</b> thanks goes to <b><a href=http://www.nicsoft.com.au/dvdinfo.html>nicw</a></b> the author of <b>DVDInfo</b> who helped me with the new capabilities features. Also big thanks to FLASHMAN for the testing of DISCInfo on his many, many drives, especialy on his test version of <a href=http://www.dvd-recordable.org/modules.php?op=modload&name=Reviews&file=index&req=showcontent&id=53>Pioneer DVR-106</a>.<br><br>
+<b>- 27.03.2003</b><br>
+New version. Still requires ASPI 4.60 drivers. Sorry about that but I'd have to redo most of the code in order to implement this. Some day... The new version includes a very cool feature. You can search for a firmware update of your drive with only one click. More info about it is written under <a href="#Howto">How to</a> section. Also check the History to see what other bugs have been fixed.<br><br>
+<b>- 17.01.2003</b><br>
+Fixes some cosmetic bugs. Nothing in the functionality. Next version should have the SPTI SCSI commands implemented wich means no more ASPI drivers (for 2k/XP only). Should be out in next few weeks.<br><br>
+<b>- 12.01.2003</b><br>
+First minor bug when saving file. Nothing too serious. Updated the version to 1.0.1.<br><br>
+<b>- 11.01.2003</b><br>
+After weeks of testing the program version 1.0 is now finaly released. DISCInfo is highly updated version of my <a href="http://hijacker.rpc1.com/toshiba/">Toshiba Revision Check</a> program wich worked only for IDE Toshiba PCDVD devices. This new program works for all CD/DVD devices and show all the possible informations of the device. It probably still have some bugs but I know you all will tell me about them as soon when you find them ;).
+<br><br>
 <font size="+2"><a name=History></a><b>History:</b></font><br><br>
+<b>- 21.02.2006 - version 1.6.0</b><br>
+- Added lots of new Toshiba models<br>
+- Added a Capture button next to minimize button on top of title bar. If pressed it will take screenshot of itself.<br>
+- Fixed the URL opening from About box and the firmware search screen. Now it properly opens the default browser.<br>
+- Fixed a bug with corrupted information about certain USB keys<br>
+<br>
 <b>- 16.11.2003 - version 1.5.5</b><br>
 Fixed an EAccessViolation bug.<br>
 Added revision identification for Toshiba DVDR models such as SD-R6012, SD-R6112, SD-R5002 and SD-R5112.<br>
@@ -47,8 +79,8 @@ Fixed a bug when you save to file and only have one CD/DVD device. It would put 
 First release...
 <br><br>
 <font size="+2"><a name=Download></a><b>Download:</b></font><br><br>
-o <a href=http://hijacker.rpc1.org/discinfo/DISCInfo155.zip>DISCInfo 1.5.5</a> (<a href=http://www.dvd-supply.com/lib/dvdsupply/DISCInfo155.zip>mirror</a> provided by <a href="http://store.yahoo.com/cgi-bin/clink?dvdsupply+HgqATs+index.html">DVD-Supply.com</a>)<br>
-o <a href=http://hijacker.rpc1.org/discinfo/aspi32v4.60.zip>ASPI layer drives 4.60 Win9x/Me/2k/XP</a><br>
+o <a href=download.php?DISCInfo160.zip>DISCInfo 1.6.0</a> (<b><? echo download_count("DISCInfo160.zip") ?></b> downloads in total)<br>
+o <a href=download.php?aspi32v4.60.zip>ASPI layer drives 4.60 Win9x/Me/2k/XP</a> (<b><? echo download_count("aspi32v4.60.zip") ?></b> downloads in total)<br>
 <br><br>
 <font size="+2"><a name=About></a><b>About this program:</b></font><br><br>
 DISCInfo is a <b>freeware</b> program to display hardware informations from and ATAPI/SCSI device under Windows operating system. Basicly what it does it that it sends SCSI commands to the device and retrives the information from them. The most usefull thing of the program is to show usefull informations about a DVD-ROM devices. It can check current region status. If the drive is region free it will state No Lock Detected but if the drive has region protection (RPC-2) it will show you the currect settings, like how many changes are left and curently set region. With the latest version program is also capable of using identified info about a CD/DVD drive to pass parameters to main firmware page and look for the firmware update files on it. It can recognise external USB/Firewire HDD/CD/DVD devices (SPTI access only) and for easy sharing of the files it enabled grabing the screenshots of the program and internaly save them to a file without any extra image manipulation tools.
@@ -77,73 +109,6 @@ Also in the menu is the ability to change the access drive wich will be used to 
 
 Info that vendors burn into the firmware/drive can be diffrent that the one written on the box when you buy them. This is usualy the problem with OEM drives. So program could identify the drive as IDE DVD-ROM 16X or something like this while the drive is actualy something else. Search will definetly return no results in this case. There is nothing I can do about it. Also lot of people have Virtual drives installed, like Nero VD, CloneCD VD, Daemon Tools,... Since my program can also identify them it's pointless to search firmwares for them.<br>
 Another thing are the vendor names. The search window has two options. One is Vendor and one is Model. Both are read from within a drive. It may not be the same as the ones we have written in the database. I would advise to search only by model. Will be more precise. Also note that you need a web browser because program display a web page with the results seperatly from the program itself (it opens a browser window to tell it simply :o)).
-<br><br>
-<font size="+2"><a name=Reports></a><b>Saved reports for CD/DVD drives:</b></font><br><br>
-You can save the information about your CD/DVD drives into a file. Just do a <b>File->Save CD/DVD Info</b> from the menu and type in a name for the file. Please <a href="mailto:hijacker@firmware-flash.com?Subject=DISCInfo Report File">send me this files</a>. I will make a big internet database for the CD/DVD drives out of them. I have allready done the same for my <a href="http://forum.firmware-flash.com/toshiba.php">Toshiba Revision Check</a> program from the files users send me. The same I plan to do with DISCInfo program.<br>
-Still need to make proper web script for it but you can allready send me the files. Thanks.
-<br><br>
-<font size="+2"><a name=Screens></a><b>Screenshot:</b></font><br><br>
-Some screenshots of the program. All taken on my two computers, except for the Pioneer DVR-106 wich was sent to me by <b>FLASHMAN</b>:<br><br>
-<table border="2">
-<tr>
-	<td><center><b>Toshiba DVD drive (RPC-1):</b></center></td>
-	<td><center><b>Lite-On CDRW drive:</b></center></td>
-<tr>
-<tr>
-	<td><center><img src=./images/toshiba.png></center></td>
-	<td><center><img src=./images/liteon.png></center></td>
-<tr>
-</table><br>
-<table border="2">
-<tr>
-	<td><center><b>Virtual DVD drive:</b></center></td>
-	<td><center><b>My Maxtor Hard Drive:</b></center></td>
-<tr>
-<tr>
-	<td><center><img src=./images/virtual.png></center></td>
-	<td><center><img src=./images/maxtor.png></center></td>
-<tr>
-</table><br>
-<table border="2">
-<tr>
-	<td><center><b>My Pioneer DVR-105:</b></center></td>
-	<td><center><b>Flashmans Pioneer DVR-106:</b></center></td>
-<tr>
-<tr>
-	<td><center><img src=./images/pioneer.png></center></td>
-	<td><center><img src=./images/pioneer106.png></center></td>
-<tr>
-</table><br>
-<table border="2">
-<tr>
-	<td><center><b>Capatibilities for Pioneer DVR-106:</b></center></td>
-	<td><center><b>Capatibilities for my LiteOn:</b></center></td>
-<tr>
-<tr>
-	<td><center><img src=./images/pioneer106capable.png></center></td>
-	<td><center><img src=./images/liteoncapable.png></center></td>
-<tr>
-</table><br>
-<table border="2">
-<tr>
-	<td><center><b>My USB Thumbdrive:</b></center></td>
-	<td><center><b>Old Yamaha SCSI burner:</b></center></td>
-<tr>
-<tr>
-	<td><center><img src=./images/thumbdrive.png></center></td>
-	<td><center><img src=./images/yamaha.png></center></td>
-<tr>
-</table><br>
-<table border="2">
-<tr>
-	<td><center><b>Toshiba search window:</b></center></td>
-	<td><center><b>LiteOn search window:</b></center></td>
-<tr>
-<tr>
-	<td><center><img src=./images/toshibasearch.png></center></td>
-	<td><center><img src=./images/liteonsearch.png></center></td>
-<tr>
-</table>
 <br><br>
 <font size="+2"><a name=FAQ></a><b>FAQ:</b></font><br><br>
 Q: <b>I get an ASPI error.</b><br>
@@ -187,6 +152,7 @@ A: <i>If it's a OEM drive then don't expect it to find anything. If it's not the
 - Thanks to <b>Cigo</b> who helped me fix some initial bugs<br>
 - Thanks to <b>Samppa</b> for helping me test the search firmware option and Mt. Rainer capability<br>
 - And all the testers who dared to test my beta versions ;o)<br><br>
+<br>
 <font size="+2"><a name=Donate></a><b>Donations:</b></font><br><br>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post"> 
 <input type="hidden" name="cmd" value="_xclick"> 
