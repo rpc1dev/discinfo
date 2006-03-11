@@ -13,6 +13,8 @@
 #include "pngimage.hpp"
 #include "CDVDMain.h"
 
+// #define DISCInfo_DEBUG
+
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma link "VersionInfoComponent"
@@ -50,7 +52,7 @@ __fastcall TMain_Form::TMain_Form(TComponent* Owner)
             SPTI1->Checked=true;
             #ifdef DISCInfo_DEBUG
                 write_log("Operating system is NT or later");
-                write_log("SPTI selected");                
+                write_log("SPTI selected");
             #endif
             if (Device::makeDeviceList() || !deviceCount)
           	{
@@ -63,7 +65,7 @@ __fastcall TMain_Form::TMain_Form(TComponent* Owner)
                             write_log("No drives found via SPTI and no ASPI found to try it. Program exit");
                         #endif
                         Application->MessageBox ("Can not locate any drives in this computer.\nPossible reason is that you don't have administration rights.\nRelogon with username that has administration rights.\nYou can also try to install ASPI drivers. ASPI can work on non admin user accounts.\nProgram will now exit!", "Program error", MB_OK | MB_ICONSTOP);
-                        exit(1);
+                        Close();
                     }
                     else
                     {
@@ -86,7 +88,7 @@ __fastcall TMain_Form::TMain_Form(TComponent* Owner)
                                     write_log("Still nothing found. Program exit");
                                 #endif
                                 Application->MessageBox ("Unable to populate the device list with ASPI driver.\nReinstall the ASPI driver with version 4.60.\nProgram will now exit!", "Program error", MB_OK | MB_ICONSTOP);
-                                exit(1);
+                                Close();
                             }
                         }
                     }
@@ -106,7 +108,7 @@ __fastcall TMain_Form::TMain_Form(TComponent* Owner)
                    write_log("ASPI not or improperly installed. Program exit.");
                 #endif
           		Application->MessageBox ("ASPI driver not or improperly installed.\n It's advised to install ASPI driver version 4.60.", "ASPI error", MB_OK | MB_ICONSTOP);
-           		exit(1);
+           		Close();
            	}
             if (Device::makeDeviceList())
           	{
@@ -114,7 +116,7 @@ __fastcall TMain_Form::TMain_Form(TComponent* Owner)
                    write_log("Unable to populate devices");
                 #endif
           		Application->MessageBox ("Unable to populate the device list. Program will now exit!", "Program error", MB_OK | MB_ICONSTOP);
-           		exit(1);
+           		Close();
            	}
             if (!deviceCount)
           	{
@@ -129,7 +131,7 @@ __fastcall TMain_Form::TMain_Form(TComponent* Owner)
                        write_log("Unable to populate devices. Program exit");
                     #endif
               		Application->MessageBox ("Unable to populate the device list. Program will now exit!", "Program error", MB_OK | MB_ICONSTOP);
-               		exit(1);
+               		Close();
                	}
                 // If still not found anything then display notice and exit
                 if (!deviceCount)
@@ -138,7 +140,7 @@ __fastcall TMain_Form::TMain_Form(TComponent* Owner)
                        write_log("No devices found. Program exit");
                     #endif                
               		Application->MessageBox ("Can not locate any drives in this computer. Program will now exit!", "Program error", MB_OK | MB_ICONSTOP);
-               		exit(1);
+               		Close();
                 }
            	}
         }
@@ -151,7 +153,7 @@ void __fastcall TMain_Form::Exit1Click(TObject *Sender)
         #ifdef DISCInfo_DEBUG
             write_log("Program exit");
         #endif
-        exit(1);
+        Close();
 }
 //---------------------------------------------------------------------------
 
@@ -601,7 +603,7 @@ void __fastcall TMain_Form::About1Click(TObject*)
 void __fastcall TMain_Form::ComboBoxChange(TObject *Sender)
 {
         int i=0;
-        
+
         Device* dev = devices;
 
         ExtraInfo1->Enabled=false;
@@ -636,10 +638,10 @@ void __fastcall TMain_Form::ComboBoxKeyPress(TObject *Sender, char &Key)
 
         if (Key == 'x' || Key == 'X' || Key == VK_ESCAPE)
         {
-                exit(1);
                 #ifdef DISCInfo_DEBUG
                     write_log("Program exit");
-                #endif
+                #endif        
+                Close();
         }
         if (Key == 'c' || Key == 'C')
         {
@@ -687,7 +689,7 @@ void __fastcall TMain_Form::ComboBoxKeyPress(TObject *Sender, char &Key)
                 #ifdef DISCInfo_DEBUG
                     write_log("Take screenshot of main window selected");
                 #endif
-                TakeScreenshot1->Click();
+                versionDblClick(NULL);
         }
         if (Key == 'i' || Key == 'I')
         {
@@ -747,53 +749,6 @@ void __fastcall TMain_Form::Firmwareupdates1Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TMain_Form::TakeScreenshot1Click(TObject *Sender)
-{
-    const char* sPOST_FileExt = ".png";
-    const char* sPOST_Filter  = "Portable Network Graphic (*.png)|*.png";
-
-    SaveDialog->DefaultExt = sPOST_FileExt;
-    SaveDialog->Filter = sPOST_Filter;
-    SaveDialog->Title = "Save the program screenshot into file";
-
-    HDC DC = GetWindowDC(Main_Form->Handle);
-    Graphics::TBitmap *bmp = new Graphics::TBitmap;
-    TPNGObject *PNG = new TPNGObject;
-
-    bmp->Height = Main_Form->Height;
-    bmp->Width = Main_Form->Width;
-
-    ComboBox->SetFocus();
-    BitBlt(bmp->Canvas->Handle, 0, 0, bmp->Width, bmp->Height, DC, 0, 0, SRCCOPY);
-
-    PNG->Assign(bmp);
-
-    if (SaveDialog->Execute())
-    {
-        if (FileExists(SaveDialog->FileName))
-        {
-            if (!DeleteFile(SaveDialog->FileName))
-            {
-                Application->MessageBox("Unable to save to file. Maybe file is write protected?", "Error", MB_OK | MB_ICONSTOP);
-                Abort();
-            }
-        }
-
-        PNG->SaveToFile(SaveDialog->FileName);
-    }
-
-    #ifdef DISCInfo_DEBUG
-        write_log("Screenshot of main window saved");
-    #endif
-
-    // bmp->SaveToFile("_DISCInfo.bmp");
-
-    ReleaseDC(0, DC);
-    delete bmp;
-    delete PNG;
-}
-//---------------------------------------------------------------------------
-
 void __fastcall TMain_Form::CopyToClipboard1Click(TObject *Sender)
 {
     #ifdef DISCInfo_DEBUG
@@ -842,7 +797,7 @@ void __fastcall TMain_Form::ASPI1Click(TObject *Sender)
                     write_log("No devices found or I have problem with finding them");
                 #endif
           		Application->MessageBox ("Can't find any drives or problem with identifying them.", "Critical error", MB_OK | MB_ICONSTOP);
-           		exit(1);
+           		Close();
            	}
        	}
         ComboBoxChange(Main_Form);        
@@ -941,15 +896,21 @@ void GetDeviceData (Device *device)
 
     if (!device->if_toshiba)
     {
-        Main_Form->fw_code->Caption="none";
+        Main_Form->fw_code->Caption="none";    
         Main_Form->specific_d->Caption=type_of;
     } else
     {
         Main_Form->fw_code->Caption=Trim((AnsiString) device->fw_code);
-        Main_Form->specific_d->Caption=device->tosh_model;
+        if(AnsiString(device->tosh_model).Length() == 0)
+        {
+             Main_Form->specific_d->Caption=AnsiString(type_of).Trim();
+        } else
+        {
+             Main_Form->specific_d->Caption=device->tosh_model;
+        }
     }
 
-    Main_Form->date->Caption=device->extra_info;
+    Main_Form->date->Caption=AnsiString(device->extra_info).Trim();
     Main_Form->version->Caption=device->firmware_version;
 
     if (device->type == DTYPE_CROM || device->type == DTYPE_WORM)
@@ -1030,3 +991,129 @@ void GetDeviceData (Device *device)
         }
     }
 }
+void __fastcall TMain_Form::versionDblClick(TObject *Sender)
+{
+    const char* sPOST_FileExt = ".png";
+    const char* sPOST_Filter  = "Portable Network Graphic (*.png)|*.png";
+
+    SaveDialog->DefaultExt = sPOST_FileExt;
+    SaveDialog->Filter = sPOST_Filter;
+    SaveDialog->Title = "Save the program screenshot into file";
+
+    HDC DC = GetWindowDC(Main_Form->Handle);
+    Graphics::TBitmap *bmp = new Graphics::TBitmap;
+    TPNGObject *PNG = new TPNGObject;
+
+    bmp->Height = Main_Form->Height;
+    bmp->Width = Main_Form->Width;
+
+    ComboBox->SetFocus();
+    BitBlt(bmp->Canvas->Handle, 0, 0, bmp->Width, bmp->Height, DC, 0, 0, SRCCOPY);
+
+    PNG->Assign(bmp);
+
+    if (SaveDialog->Execute())
+    {
+        if (FileExists(SaveDialog->FileName))
+        {
+            if (!DeleteFile(SaveDialog->FileName))
+            {
+                Application->MessageBox("Unable to save to file. Maybe file is write protected?", "Error", MB_OK | MB_ICONSTOP);
+                Abort();
+            }
+        }
+
+        PNG->SaveToFile(SaveDialog->FileName);
+    }
+
+    #ifdef DISCInfo_DEBUG
+        write_log("Screenshot of main window saved");
+    #endif
+
+    ReleaseDC(0, DC);
+    delete bmp;
+    delete PNG;
+}
+//---------------------------------------------------------------------------
+
+#define ABOUT_BUTTON_CPP(TMain_Form, INI_FILE)
+void __fastcall TMain_Form::WMNCPaint(TMessage &Msg)
+{
+	TForm::Dispatch(&Msg);
+	TCanvas * FCanvas = new TCanvas();
+	Graphics::TBitmap *Bmp = new Graphics::TBitmap;
+
+	FCanvas->Handle = GetWindowDC(Handle);
+	Bmp->LoadFromResourceName(int(HInstance), "FOTO");
+
+	/*calc width*/
+	InfoButtonRect.left = GetSystemMetrics(SM_CXSIZE) * 3 + GetSystemMetrics(SM_CXFRAME) + Bmp->Width;
+	InfoButtonRect.left = Width - InfoButtonRect.left;
+
+	/*calc last three points of rect*/
+	if(BorderStyle == bsSizeable)
+	{
+	    InfoButtonRect.top = GetSystemMetrics(SM_CYFRAME) + GetSystemMetrics(SM_CYBORDER);
+	}
+	else
+	{
+	    InfoButtonRect.top = GetSystemMetrics(SM_CYFRAME);
+	}
+
+	InfoButtonRect.right = InfoButtonRect.left + Bmp->Width;
+	InfoButtonRect.bottom = InfoButtonRect.top + Bmp->Height;
+
+	SetBkMode(FCanvas->Handle, TRANSPARENT);
+
+	/*draw bitmap*/
+	FCanvas->Draw(InfoButtonRect.left, InfoButtonRect.top, Bmp);
+	// Repaint();
+	/*overwrite top to catch all clicks on bitmap*/
+	InfoButtonRect.top = -1;
+
+	ReleaseDC(Handle, FCanvas->Handle);
+	delete Bmp;
+	delete FCanvas;
+
+}
+/*---------------------------------------------------------------------------*/
+void __fastcall TMain_Form::WMNCLButtonDown(TMessage &Msg)
+{
+	TForm::Dispatch(&Msg);
+									
+	if (Msg.WParam == HTCAPTION)                               
+	{                                                          
+		int LSpace = GetSystemMetrics(SM_CXBORDER) + GetSystemMetrics(SM_CXFRAME);     
+		int TSpace = GetSystemMetrics(SM_CXSIZE);
+
+		POINTS MPoints = MAKEPOINTS(Msg.LParam);
+		TPoint MousePoint = TPoint(MPoints.x + LSpace, (MPoints.y + TSpace + 25));
+		MousePoint = ScreenToClient(MousePoint);
+
+		if(PtInRect(InfoButtonRect, MousePoint))
+		{
+               versionDblClick(NULL);
+		}
+	}
+}
+/*---------------------------------------------------------------------------*/
+void __fastcall TMain_Form::WMActivate(TMessage &Msg)
+{
+	TForm::Dispatch(&Msg);
+
+	Perform(WM_NCPAINT, 0, 0);
+}
+/*---------------------------------------------------------------------------*/
+void __fastcall TMain_Form::WMNCActivate(TMessage &Msg)
+{
+	TForm::Dispatch(&Msg);
+
+	Perform(WM_NCPAINT, 0, 0);
+}
+
+void __fastcall TMain_Form::FormResize(TObject *Sender)
+{
+     Perform(WM_NCPAINT, 0, 0);
+}
+//---------------------------------------------------------------------------
+

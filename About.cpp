@@ -34,18 +34,13 @@ void __fastcall TAbout_Box::Label3Click(TObject *Sender)
 
 void __fastcall TAbout_Box::Label8Click(TObject *Sender)
 {
-        ShellExecute(About_Box->Handle,"open","url:http://www.rpc1.org","","",0);
+        ShellExecute(About_Box->Handle,"open","http://www.rpc1.org","","",0);
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TAbout_Box::Label5Click(TObject *Sender)
 {
-        ShellExecute(About_Box->Handle,"open","url:http://discinfo.rpc1.org/","","",0);        
-}
-//---------------------------------------------------------------------------
-void __fastcall TAbout_Box::Image1Click(TObject *Sender)
-{
-    ShellExecute(About_Box->Handle,"open","url:http://store.yahoo.com/cgi-bin/clink?dvdsupply+HgqATs+index.html","","",0);    
+        ShellExecute(About_Box->Handle,"open","http://discinfo.rpc1.org/","","",0);        
 }
 //---------------------------------------------------------------------------
 

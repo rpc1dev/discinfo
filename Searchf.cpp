@@ -97,15 +97,15 @@ void __fastcall TSearch_Box::SrchButtonClick(TObject *Sender)
         char search[500];
         if (VendorBox->Checked && ModelBox->Checked)
         {
-            sprintf(search,"url:http://forum.rpc1.org/dl_result.php?kaj=1&isces=%s %s",VendorBox->Caption,ModelBox->Caption);
+            sprintf(search,"http://forum.rpc1.org/dl_result.php?kaj=1&isces=%s %s",VendorBox->Caption,ModelBox->Caption);
         }
         if (VendorBox->Checked && !ModelBox->Checked)
         {
-            sprintf(search,"url:http://forum.rpc1.org/dl_result.php?kaj=1&isces=%s",VendorBox->Caption);
+            sprintf(search,"http://forum.rpc1.org/dl_result.php?kaj=1&isces=%s",VendorBox->Caption);
         }
         if (!VendorBox->Checked && ModelBox->Checked)
         {
-            sprintf(search,"url:http://forum.rpc1.org/dl_result.php?kaj=1&isces=%s",ModelBox->Caption);
+            sprintf(search,"http://forum.rpc1.org/dl_result.php?kaj=1&isces=%s",ModelBox->Caption);
         }
         if (!VendorBox->Checked && !ModelBox->Checked)
         {

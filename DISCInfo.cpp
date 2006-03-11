@@ -5,10 +5,10 @@
 
 //---------------------------------------------------------------------------
 USEFORM("CDVDMain.cpp", Main_Form);
-//USEFORM("About.cpp", About_Box);
-//USEFORM("Extra.cpp", Extra_Box);
-//USEFORM("Searchf.cpp", Search_Box);
-//USEFORM("Summary.cpp", SumInfo);
+USEFORM("About.cpp", About_Box);
+USEFORM("Extra.cpp", Extra_Box);
+USEFORM("Searchf.cpp", Search_Box);
+USEFORM("Summary.cpp", SumInfo);
 //---------------------------------------------------------------------------
 #pragma resource "*.dfm"
 
@@ -21,9 +21,9 @@ WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
         try
         {
             Application->Initialize();
-            Application->Title = "DISC Info version 1.5.0";
+            Application->Title = "DISC Info version 1.6.1";
             Application->CreateForm(__classid(TMain_Form), &Main_Form);
-            Application->Run();
+           Application->Run();
         }
         catch (Exception &exception)
         {

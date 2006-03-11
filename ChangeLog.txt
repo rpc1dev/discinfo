@@ -1,3 +1,8 @@
+- 11.03.2006 - version 1.6.1
+Fixed a bug in recognition of some 5XXX models
+Added recognition of VOS CPU Toshiba drives.
+Added reading of a two letter OEM code from TSSTCorp/Samsung/Toshiba drives.
+
 - 21.02.2006 - version 1.6.0
 Added lots of new Toshiba models
 Added a Capture button next to minimize button on top of title bar. If pressed it will take screenshot of itself.

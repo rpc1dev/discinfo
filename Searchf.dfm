@@ -1,6 +1,6 @@
 object Search_Box: TSearch_Box
-  Left = 800
-  Top = 313
+  Left = 655
+  Top = 184
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Search for updates'

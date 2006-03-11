@@ -55,7 +55,6 @@ __published:	// IDE-managed Components
         TMenuItem *ExtraInfo1;
         TMenuItem *View1;
     TMenuItem *Firmwareupdates1;
-    TMenuItem *TakeScreenshot1;
     TMenuItem *CopyToClipboard1;
     TMenuItem *Options1;
     TMenuItem *ASPI1;
@@ -70,12 +69,29 @@ __published:	// IDE-managed Components
         void __fastcall Displayotherdevices1Click(TObject *Sender);
         void __fastcall ExtraInfo1Click(TObject *Sender);
     void __fastcall Firmwareupdates1Click(TObject *Sender);
-    void __fastcall TakeScreenshot1Click(TObject *Sender);
     void __fastcall CopyToClipboard1Click(TObject *Sender);
     void __fastcall SPTI1Click(TObject *Sender);
     void __fastcall ASPI1Click(TObject *Sender);
     void __fastcall Resfresh1Click(TObject *Sender);
+    void __fastcall versionDblClick(TObject *Sender);
+     void __fastcall FormResize(TObject *Sender);
 private:	// User declarations
+#define ABOUT_BUTTON_H
+/*info button rect*/
+TRect InfoButtonRect;
+TRect HelpButtonRect;
+/*os message functions*/
+void __fastcall WMNCLButtonDown(TMessage &Msg);
+void __fastcall WMNCPaint(TMessage &Msg);
+void __fastcall WMNCActivate(TMessage &Msg);
+void __fastcall WMActivate(TMessage &Msg);
+/*catch os messages*/
+BEGIN_MESSAGE_MAP
+	VCL_MESSAGE_HANDLER(WM_NCLBUTTONDOWN, TMessage, WMNCLButtonDown)
+	VCL_MESSAGE_HANDLER(WM_NCPAINT,       TMessage, WMNCPaint)
+	VCL_MESSAGE_HANDLER(WM_NCACTIVATE,    TMessage, WMNCActivate)
+	VCL_MESSAGE_HANDLER(WM_ACTIVATE,      TMessage, WMActivate)
+END_MESSAGE_MAP(TForm)
 public:		// User declarations
     __fastcall TMain_Form(TComponent* Owner);
 };
@@ -87,3 +103,4 @@ void start_log();
 void write_log(char *debug_string);
 //---------------------------------------------------------------------------
 #endif
+

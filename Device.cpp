@@ -4,6 +4,8 @@
 #include "CDVDMain.h"
 #include "ntddscsi.h"
 
+// #define DISCInfo_DEBUG
+
 typedef struct _Known
 {
 	char h,l;
@@ -12,29 +14,33 @@ typedef struct _Known
 
 Known Types2[]=
 {
+	{'R','E',"SD-C 2002"},
+	{'X','C',"SD-C 2102/SD-M 1202"},
+	{'X','I',"SD-C 2502"},
+	{'X','W',"SD-C 2732"},
 	{'X','A',"SD-M 1002"},
 	{'X','B',"SD-M 1102"},
-	{'X','C',"SD-M 1202"},
+	{'Y','D',"SD-M 1201"},
 	{'X','D',"SD-M 1212/SD-C 2202"},
-	{'X','F',"SD-M 1302/SD-C 2302"},
-	{'X','G',"SD-M 1402 v1/SD-C 2402"},
 	{'X','H',"SD-M 1222"},
-	{'X','I',"SD-C 2502"},
-	{'X','J',"SD-M 1502 revA/SD-C 2512"},
+	{'X','F',"SD-M 1302/SD-C 2302"},
+	{'Y','G',"SD-M 1401"},
+	{'X','G',"SD-M 1402 revA/SD-C 2402"},
 	{'X','K',"SD-M 1402 revB"},
+	{'X','J',"SD-M 1502 revA/SD-C 2512"},
 	{'X','M',"SD-M 1502 revB"},
 	{'X','N',"SD-M 1612 revA"},
 	{'X','O',"SD-M 1612 revB/SD-C 2612"},
 	{'X','P',"SD-M 1612 revC"},
-	{'X','Q',"SD-M 1712"},        
-	{'Y','D',"SD-M 1201"},
-	{'Y','G',"SD-M 1401"},
-  	{'Y','F',"SD-M 1301"},
-	{'Y','Q',"SD-M 1711"},
+	{'X','Q',"SD-M 1712"},
+	{'X','S',"SD-M 1802"},
+	{'X','U',"SD-M 1802 Bose OEM"},
 	{'H','M',"SD-R 1002"},
 	{'H','N',"SD-R 1102"},
 	{'H','P',"SD-R 1202/1202F"},
 	{'H','Q',"SD-R 1312"},
+	{'H','R',"SD-R 1412"},
+	{'H','S',"SD-R 1512"},
 	{'I','M',"SD-R 2002 revA"},
 	{'I','N',"SD-R 2002 revB"},
 	{'I','O',"SD-R 2102 revA"},
@@ -43,10 +49,26 @@ Known Types2[]=
 	{'I','R',"SD-R 2212 revB"},
 	{'I','S',"SD-R 2312"},
 	{'I','T',"SD-R 2412"},
+	{'I','U',"SD-R 2512"},
 	{'K','M',"SD-R 5002"},
-	{'K','N',"SD-R 5112"},    
+	{'K','N',"SD-R 5112 revA"},
+	{'K','P',"SD-R 5112 revB"},
+	{'K','Q',"SD-R 5272"},
+	{'E','B',"SD-R 5372"},
+	{'E','D',"SD-R 5372V"},
 	{'L','M',"SD-R 6012"},
 	{'L','O',"SD-R 6112"},
+	{'P','M',"SD-R 6252"},
+	{'P','N',"SD-R 6372"},
+	{'O','A',"SD-R 6472"},
+	{'O','B',"SD-R 6572M"},
+	{'O','C',"SD-R 6472U"},
+	{'M','M',"SD-R 9012"},
+	{'Z','C',"SD-W1101"},
+	{'Z','D',"SD-W1111"},
+	{'Z','G',"SD-W2002"},
+	{'J','M',"SR-C8002"},
+	{'J','N',"SR-C8102"}
 };
 
 Device *devices = NULL;
@@ -64,6 +86,8 @@ bool DumpableDrive(Device* dev)
 		"Toshiba",
 		"KiSS",
 		"Compaq",
+		"TSSTCorp",
+		"Samsung",
 		NULL
 	};
         
@@ -82,7 +106,6 @@ DWORD Device::makeDeviceList(void)
    	unsigned char buffer[2048];
 	unsigned char b[256];
 	unsigned char cmd[12];
-	unsigned char cmd2[9];    
    	BYTE CDB[16];
 	unsigned char bx[255];
 	char flags;
@@ -130,9 +153,8 @@ DWORD Device::makeDeviceList(void)
     // SPTI
     if (Main_Form->SPTI1->Checked)
     {
-
         #ifdef DISCInfo_DEBUG
-            write_log("---------------------------------------------");        
+            write_log("---------------------------------------------");
             write_log("Searching for drives in SPTI mode");
         #endif
         
@@ -341,145 +363,273 @@ DWORD Device::makeDeviceList(void)
         #endif
 
         dev->if_toshiba=false;
-        
+
         // BEGIN TOSHIBA DUMPING OF TWO BYTE
-        if (DumpableDrive (dev))
-        {
+		// Change March, 2006 - Try this on every drive. Doesn't hurt them.
 
-            #ifdef DISCInfo_DEBUG
-                write_log("Drive is Toshiba so let's check for it's firmware code");
-            #endif
+		#ifdef DISCInfo_DEBUG
+			write_log("Checking the drive to fetch the two byte revision ID");
+		#endif
 
-            // TWO CHAR INFO
-            // first write the bank into bank switch register at F003
+		// TWO CHAR INFO
+		// first write the bank into bank switch register at F003
 
-            p = (char *) cmd;
-            *p++ = 0x1D;
-            *p++ = 0x00;
-            *p++ = 0x00;
-            *p++ = 0x00;
-            *p++ = 0x08;
-            *p++ = 0x00;
-            *p++ = 0x00;
-            *p++ = 0x00;
-            *p++ = 0x00;
-            *p++ = 0x00;
-            *p++ = 0x00;
-            *p++ = 0x00;
+		memset(cmd, 0, sizeof(cmd));
+		memset(buffer, 0, sizeof(buffer));
 
-            p = (char *) buffer;
-            *p++ = 0x88;
-            *p++ = 0x00;
-            *p++ = 0x00;
-            *p++ = 0x04;
-            *p++ = 0x00;
-            *p++ = 0x40;
-            *p++ = 0x00;
-            *p++ = 0x00;
+		cmd[0] = 0x1D;
+		cmd[4] = 0x08;
 
-            if (Main_Form->SPTI1->Checked)
-            {
-                status = dev->SendSPTICommand(cmd, 12, dwFlags, SCSI_IOCTL_DATA_OUT, (unsigned char *) buffer, 0x0A);
-            }
-            else
-            {
-                status = dev->SendCommand(cmd, 12, SRB_DIR_OUT, (unsigned char *) buffer, 0x0A);
-            }
+		buffer[0] = 0x88;
+		buffer[3] = 0x04;
+		buffer[5] = 0x40;
 
-            if (status != 0)
-            {
-                #ifdef DISCInfo_DEBUG
-                    write_log("First Toshiba command failed");
-                #endif
-                dev->if_toshiba=false;
-                dev->fw_code[0]=0;
-                dev->tosh_model[0]=0;
-            } else
-            {
-                #ifdef DISCInfo_DEBUG
-                    write_log("First Toshiba command completed successfully");
-                #endif
+		if (Main_Form->SPTI1->Checked)
+		{
+			status = dev->SendSPTICommand(cmd, 12, dwFlags, SCSI_IOCTL_DATA_OUT, (unsigned char *) buffer, 0x0A);
+		}
+		else
+		{
+			status = dev->SendCommand(cmd, 12, SRB_DIR_OUT, (unsigned char *) buffer, 0x0A);
+		}
 
-                p = (char *) cmd;
-                *p++ = 0x1C;
-                *p++ = 0x00;
-                *p++ = 0x00;
-                *p++ = 0xFF; // len
-                *p++ = 0xFF;
-                *p++ = 0x00;
-                *p++ = 0x00;
-                *p++ = 0x00;
-                *p++ = 0x00;
-                *p++ = 0x00;
-                *p++ = 0x00;
-                *p++ = 0x00;
+		if (status != 0)
+		{
+			#ifdef DISCInfo_DEBUG
+				write_log("First Toshiba command failed");
+			#endif
+			dev->if_toshiba=false;
+		} else
+		{
+			#ifdef DISCInfo_DEBUG
+				write_log("First Toshiba command completed successfully");
+			#endif
 
-                if (Main_Form->SPTI1->Checked)
-                {
-                    status = dev->SendSPTICommand(cmd, 12, dwFlags, SCSI_IOCTL_DATA_IN, (unsigned char *) buffer, 255);
-                }
-                else
-                {
-                    status = dev->SendCommand(cmd, 12, SRB_DIR_IN, (unsigned char *) buffer, 255);
-                }
+			memset(cmd, 0, sizeof(cmd));
+			cmd[0] = 0x1C;
+			cmd[3] = 0xFF; // Lenght
+			cmd[4] = 0xFF;                
 
-                if (status != 0)
-                {
-                    #ifdef DISCInfo_DEBUG
-                        write_log("Second Toshiba command failed");
-                    #endif
-                    dev->if_toshiba=false;
-                    dev->fw_code[0]=0;
-                    dev->tosh_model[0]=0;
-                } else
-                {
-                    #ifdef DISCInfo_DEBUG
-                        write_log("Second Toshiba command completed successfully");
-                    #endif
-                    if ( !isalpha(buffer[6]) || !isalpha(buffer[7]) ) // special case for the SD-M1201?
-                    {
-                        dev->if_toshiba=false;
-                        memcpy(dev->fw_code, "", 25);
-                        dev->fw_code[25]=0;
-                        memcpy(dev->tosh_model, "", 35);
-                        dev->tosh_model[35]=0;
-                    } else
-                    {
-                        dev->if_toshiba=true;
-                        sprintf(fk,"%c%c", toupper(buffer[6]), toupper(buffer[7]));
-                        memcpy(dev->fw_code, fk, 2);
-                        dev->fw_code[2] = 0;
-                        for (i = 0; i < (sizeof(Types2)/sizeof(Types2[0])); i++)
-                        {
-                            if ((Types2[i].h == toupper(buffer[6])) && (Types2[i].l == toupper(buffer[7])))
-                            {
-                                sprintf(dev->tosh_model,"Toshiba %s",Types2[i].desc);
-                                #ifdef DISCInfo_DEBUG
-                                    char logz[255];
-                                    sprintf(logz,"Toshiba drive identified as %s",Types2[i].desc);
-                                    write_log(logz);
-                                #endif
-                                foundit = 1;
-                            }
-                        }
-                        if (foundit!=1)
-                        {
-                            sprintf(dev->tosh_model,"Unknown model");
-                            #ifdef DISCInfo_DEBUG
-                                char logz[255];
-                                sprintf(logz,"Unknowned Toshiba model with code %c%c",toupper(buffer[6]),toupper(buffer[7]));
-                                write_log(logz);
-                            #endif
-                        }
-                    }
-                }
-            }
-        } else
-        {
-            dev->if_toshiba=false;
-            dev->fw_code[0]=0;
-            dev->tosh_model[0]=0;
-        }
+			if (Main_Form->SPTI1->Checked)
+			{
+				status = dev->SendSPTICommand(cmd, 12, dwFlags, SCSI_IOCTL_DATA_IN, (unsigned char *) buffer, 255);
+			}
+			else
+			{
+				status = dev->SendCommand(cmd, 12, SRB_DIR_IN, (unsigned char *) buffer, 255);
+			}
+
+			if (status != 0)
+			{
+				#ifdef DISCInfo_DEBUG
+					write_log("Second Toshiba command failed");
+				#endif
+				dev->if_toshiba=false;
+			} else
+			{
+				#ifdef DISCInfo_DEBUG
+					write_log("Second Toshiba command completed successfully");
+				#endif
+				if ( !isalpha(buffer[6]) || !isalpha(buffer[7]) )
+				{
+					dev->if_toshiba=false;
+					memcpy(dev->fw_code, "", 25);
+					dev->fw_code[25]=0;
+					memcpy(dev->tosh_model, "", 35);
+					dev->tosh_model[35]=0;
+				} else
+				{
+					dev->if_toshiba=true;
+					sprintf(fk,"%c%c", toupper(buffer[6]), toupper(buffer[7]));
+					memcpy(dev->fw_code, fk, 2);
+					dev->fw_code[2] = 0;
+					for (i = 0; i < (sizeof(Types2)/sizeof(Types2[0])); i++)
+					{
+						if ((Types2[i].h == toupper(buffer[6])) && (Types2[i].l == toupper(buffer[7])))
+						{
+							sprintf(dev->tosh_model,"Toshiba %s",Types2[i].desc);
+							#ifdef DISCInfo_DEBUG
+								char logz[255];
+								sprintf(logz,"Toshiba drive identified as %s",Types2[i].desc);
+								write_log(logz);
+							#endif
+							foundit = 1;
+						}
+					}
+					if (foundit!=1)
+					{
+						sprintf(dev->tosh_model,"Unknown model");
+						#ifdef DISCInfo_DEBUG
+							char logz[255];
+							sprintf(logz,"Unknowned Toshiba model with code %c%c",toupper(buffer[6]),toupper(buffer[7]));
+							write_log(logz);
+						#endif
+					}
+				}
+			}
+		}
+
+		if (dev->if_toshiba == false)
+		{
+			#ifdef DISCInfo_DEBUG
+				write_log("Checking the drive to fetch the two byte revision ID (VOS)");
+			#endif
+
+			memset(cmd, 0, sizeof(cmd));
+			memset(buffer, 0, sizeof(buffer));
+
+			cmd[0] = 0x1D;
+			cmd[1] = 0x10;
+			cmd[4] = 0x06;
+
+			buffer[0] = 0x85;
+			buffer[3] = 0x02;
+			buffer[4] = 0x01;
+			buffer[5] = 0x01;
+
+			if (Main_Form->SPTI1->Checked)
+			{
+				status = dev->SendSPTICommand(cmd, 6, dwFlags, SCSI_IOCTL_DATA_OUT, (unsigned char *) buffer, 12);
+			}
+			else
+			{
+				status = dev->SendCommand(cmd, 6, SRB_DIR_OUT, (unsigned char *) buffer, 12);
+			}
+
+			if (status != 0)
+			{
+				#ifdef DISCInfo_DEBUG
+					write_log("First VOS command failed");
+				#endif
+				dev->if_toshiba=false;
+			} else
+			{
+				#ifdef DISCInfo_DEBUG
+					write_log("First VOS command completed successfully");
+				#endif
+
+				memset(cmd, 0, sizeof(cmd));
+				cmd[0] = 0x1C;
+				cmd[4] = 0x0C;
+
+				if (Main_Form->SPTI1->Checked)
+				{
+					status = dev->SendSPTICommand(cmd, 6, dwFlags, SCSI_IOCTL_DATA_IN, (unsigned char *) buffer, 8);
+				}
+				else
+				{
+					status = dev->SendCommand(cmd, 6, SRB_DIR_IN, (unsigned char *) buffer, 8);
+				}
+
+				if (status != 0)
+				{
+					#ifdef DISCInfo_DEBUG
+						write_log("Second VOS command failed");
+					#endif
+					dev->if_toshiba=false;
+				} else
+				{
+					#ifdef DISCInfo_DEBUG
+						write_log("Second VOS command completed successfully");
+					#endif
+					if ( !isalpha(buffer[4]) || !isalpha(buffer[5]) )
+					{
+						dev->if_toshiba=false;
+						memcpy(dev->fw_code, "", 25);
+						dev->fw_code[25]=0;
+						memcpy(dev->tosh_model, "", 35);
+						dev->tosh_model[35]=0;
+					} else
+					{
+						dev->if_toshiba=true;
+						sprintf(fk,"%c%c", toupper(buffer[4]), toupper(buffer[5]));
+						memcpy(dev->fw_code, fk, 2);
+						dev->fw_code[2] = 0;
+						for (i = 0; i < (sizeof(Types2)/sizeof(Types2[0])); i++)
+						{
+							if ((Types2[i].h == toupper(buffer[4])) && (Types2[i].l == toupper(buffer[5])))
+							{
+								sprintf(dev->tosh_model,"Toshiba %s",Types2[i].desc);
+								#ifdef DISCInfo_DEBUG
+									char logz[255];
+									sprintf(logz,"Toshiba drive identified as %s",Types2[i].desc);
+									write_log(logz);
+								#endif
+								foundit = 1;
+							}
+						}
+						if (foundit!=1)
+						{
+							sprintf(dev->tosh_model,"Unknown model");
+							#ifdef DISCInfo_DEBUG
+								char logz[255];
+								sprintf(logz,"Unknowned Toshiba model with code %c%c",toupper(buffer[6]),toupper(buffer[7]));
+								write_log(logz);
+							#endif
+						}
+					}
+				}
+			}
+		}
+
+
+		if (dev->if_toshiba == false)
+		{
+
+			#ifdef DISCInfo_DEBUG
+				write_log("Checking the drive to fetch the two byte OEM ID");
+			#endif
+
+			memset(cmd, 0, sizeof(cmd));
+			cmd[0] = 0xFF;
+			cmd[2] = 0xFF;
+			cmd[11] = 0xAA;
+
+			if (Main_Form->SPTI1->Checked)
+			{
+				status = dev->SendSPTICommand(cmd, 12, dwFlags, SCSI_IOCTL_DATA_IN, (unsigned char *) buffer, 8);
+			}
+			else
+			{
+				status = dev->SendCommand(cmd, 12, SRB_DIR_IN, (unsigned char *) buffer, 8);
+			}
+
+			if (status != 0)
+			{
+				#ifdef DISCInfo_DEBUG
+					write_log("OEM ID command failed");
+				#endif
+				dev->if_toshiba=false;
+			} else
+			{
+				#ifdef DISCInfo_DEBUG
+					write_log("OEM ID command completed successfully");
+				#endif
+				if ( !isalpha(buffer[4]) || !isalpha(buffer[5]) )
+				{
+					dev->if_toshiba=false;
+					memcpy(dev->fw_code, "", 25);
+					dev->fw_code[25]=0;
+					memcpy(dev->tosh_model, "", 35);
+					dev->tosh_model[35]=0;
+				} else
+				{
+					dev->if_toshiba=true;
+					memcpy(dev->fw_code, "", 25);
+					dev->fw_code[25]=0;
+					memcpy(dev->tosh_model, "", 35);
+					dev->tosh_model[35]=0;
+					sprintf(fk,"OEM %c%c", toupper(buffer[4]), toupper(buffer[5]));
+					memcpy(dev->fw_code, fk, 6);
+					dev->fw_code[6] = 0;					
+				}
+			}
+		}
+		if (dev->if_toshiba == false)
+		{
+			dev->fw_code[0]=0;
+			dev->tosh_model[0]=0;
+		}
         // END TOSHIBA DUMPING OF TWO BYTE
 
         if ((dev->type == DTYPE_CROM) || (dev->type == DTYPE_WORM))
@@ -529,7 +679,7 @@ DWORD Device::makeDeviceList(void)
             dev->iscdDrive = FALSE;
 
             dev->buffersize=0;
-            dev->levels=0;                        
+            dev->levels=0;
 
             dev->isdvdDrive = FALSE;
 
@@ -664,7 +814,7 @@ DWORD Device::makeDeviceList(void)
                 }
             }
 
-            AnsiString capable=Trim(AnsiString(dev->name).SubString(0,24))+":\n";
+//            AnsiString capable=Trim(AnsiString(dev->name).SubString(0,24))+":\n";
             memset(cmd, 0, sizeof(cmd));
 
             #ifdef DISCInfo_DEBUG
@@ -698,42 +848,49 @@ DWORD Device::makeDeviceList(void)
                 AdditionalLength = buffer[11];
                 NumberofProfiles = AdditionalLength / 4;
 
-                int offset = 12;  //first feature offset in buffer MSB
+                offset = 12;  //first feature offset in buffer MSB
                 for(int f=0; f < NumberofProfiles; f++)
                 {
                     int profile = buffer[offset] << 8 | buffer[offset + 1];
                     switch (profile)
                     {
                         case 3:
-                        case 5:     capable += "asynchronous magneto optical\n"; break;
-                        case 8:     capable += "cdrom read\n"; break;
-                        case 9:     capable += "cdr  write\n"; break;
-                        case 0xA:   capable += "cdrw  write\n"; break;
-                        case 0x10:  capable += "dvdrom read\n"; break;
-                        case 0x11:  capable += "dvd-r write\n";
+                        case 5:     //capable += "asynchronous magneto optical\n";
+                                    break;
+                        case 8:     //capable += "cdrom read\n";
+                                    break;
+                        case 9:     //capable += "cdr  write\n";
+                                    break;
+                        case 0xA:   //capable += "cdrw  write\n";
+                                    break;
+                        case 0x10:  //capable += "dvdrom read\n";
+                                    break;
+                        case 0x11:  //capable += "dvd-r write\n";
                                     dev->dvdRWrite=true; dev->dvdRRead=true;
                                     break;
-                        case 0x12:  capable += "dvd-ram write\n"; break;
-                        case 0x13:  capable += "dvd-rw restricted overwrite\n";
+                        case 0x12:  //capable += "dvd-ram write\n";
+                                    break;
+                        case 0x13:  //capable += "dvd-rw restricted overwrite\n";
                                     dev->dvdRWWrite=true; dev->dvdRWRead=true;
                                     break;
-                        case 0x14:  capable += "dvd-rw sequential recording\n";
+                        case 0x14:  //capable += "dvd-rw sequential recording\n";
                                     dev->dvdRWWrite=true; dev->dvdRWRead=true;
                                     break;
-                        case 0x1A:  capable += "dvd+rw write\n";
+                        case 0x1A:  //capable += "dvd+rw write\n";
                                     dev->dvdPRWWrite=true; dev->dvdPRWRead=true;
                                     break;  //make some assumptions here if write then read too
-                        case 0x1B:  capable += "dvd+r write\n";
+                        case 0x1B:  //capable += "dvd+r write\n";
                                     dev->dvdPRWrite=true; dev->dvdPRRead=true;
                                     break;     //and here if write then read too
-                        case 0xFFFF: capable += "Not good\n"; break;
+                        case 0xFFFF: //capable += "Not good\n";
+                                     break;
                     }
                     offset += 4;
                     Length -= 4;
                     if (Length <= 12 || offset >= 2048)
                     break;
                 }
-                capable += "\n";
+                //capable += "\n";
             }
             
             // Mt. Rainier
@@ -772,24 +929,43 @@ DWORD Device::makeDeviceList(void)
                 Length =  buffer[0] << 24 | buffer[1] << 16 | buffer[2] <<8 | buffer[3];
                 AdditionalLength = buffer[11];
                 NumberofProfiles = AdditionalLength / 4;
-
+                #ifdef DISCInfo_DEBUG
+                    write_log("Filled in the values");
+                #endif
                 offset = 8;  //first feature offset in buffer MSB
                 do
                 {
                     int feature = buffer[offset] << 8 | buffer[offset + 1];
                     switch (feature)
                     {
-                        case 0x28:  capable += "mt rainier read write\n";
-                                    dev->mtrainier=true; break;
-                        case 0x2B:  capable += "dvd+r read\n";
+                        case 0x28:  //capable += "mt rainier read write\n";
+                                    #ifdef DISCInfo_DEBUG
+                                        write_log("Profile 28: Mt Rainier");
+                                    #endif
+                                    dev->mtrainier=true;
+                                    break;
+                        case 0x2B:  //capable += "dvd+r read\n";
+                                    #ifdef DISCInfo_DEBUG
+                                        write_log("Profile 2B: dvd+r read");
+                                    #endif
                                     dev->dvdPRRead=true;
                                     break;
-                        case 0x2A:  capable += "dvd+rw read\n";
+                        case 0x2A:  //capable += "dvd+rw read\n";
+                                    #ifdef DISCInfo_DEBUG
+                                        write_log("Profile 2A: dvd+rw read");
+                                    #endif
                                     dev->dvdPRWRead=true; dev->dvdPRRead=true;
                                     break;
-                        case 0xFFFF: capable += "Not good\n"; break;
+                        case 0xFFFF: //capable += "Not good\n";
+                                    #ifdef DISCInfo_DEBUG
+                                        write_log("FFFF ERROR");
+                                    #endif
+                                    break;
                     }
                     offset += (4 + buffer[offset + 3]);
+                    Length -= 4;
+                    if (Length <= 12 || offset >= 2048)
+                    break;
                 } while(offset < (Length - 4));
             }
             //ShowMessage(capable);
@@ -1079,4 +1255,5 @@ DWORD Device::SendSPTICommand(BYTE *CDBByte, BYTE CDBLen, DWORD dwFlags, DWORD I
         }
 	return 0;
 }
+
 

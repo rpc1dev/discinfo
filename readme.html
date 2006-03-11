@@ -9,21 +9,22 @@ include("download.php");
 <span style='font-family:Verdana'><div style="text-align:justify">
 <center><font size="+3"><a name=Top></a><b>DISCInfo</font><br><i>(DVD-IDE-SCSI-CD Information Program)</i></b>
 <br><br><i>Made by <a href=http://forum.rpc1.org/profile.php?mode=viewprofile&u=2>Hijacker</a></i>
-<br>Last update: 21.02.2006</center><br><br>
+<br>Last update: 11.03.2006</center><br><br>
 <font size="+2"><b>Index:</b></font><br><br>
 o <a href="#News">News</a><br>
 o <a href="#History">History</a><br>
-o <a href="#Download">Download</a><br>
 o <a href="#About">About this program</a><br>
 o <a href="#Howto">How to</a><br>
 o <a href="#FAQ">FAQ</a><br>
 o <a href="#Credits">Credits</a><br>
 o <a href="#Donate">Donations</a><br><br>
 <font size="+2"><a name=News></a><b>News:</b></font><br><br>
+<b>- 11.03.2006</b><br>
+Small version update. There was a bug in recognition of some 5XXX models. I've also added new drives in the drive recognition table and ability to read OEM code out of TSSTCorp/Samsung/Toshiba drives.
+<br><br>
 <b>- 21.02.2006</b><br>
 Can't believe it's been that long since the last version of DISCInfo came out. And to this day it's still working, recognising drives for region protection and looking great ;). The program was mainly meant for Toshiba drive users to find out wich revision drives they have. Lately Toshiba stopped making their own DVD drives and made a deal with Samsung. They use different hardware so I can't read this new info out. It's not important anyway since now they add a letter to the model and make it new revision. But still, there are some old Toshiba drives that were not yet identified by DISCInfo, so it's time for new version. It's only a minor change since there isn't much I can improve. There are other tools to do that. I want it nice an simple.
-<br><br>
-Also would like to point out my new Toshiba firmware page located <a href="http://hijacker.rpc1.org/toshiba" target=_blank>here</a> with lots of latest firmwares for different Toshiba/Samsung models.<br><br>
+Also would like to point out my new Toshiba firmware page located <a href="http://hijacker.rpc1.org/toshiba" target=_blank>here</a> with lots of latest firmwares for diffrent Toshiba/Samsung models.<br><br>
 If you find any bugs, you know how to find me.
 <br><br>
 <b>- 16.11.2003</b><br>
@@ -44,6 +45,11 @@ First minor bug when saving file. Nothing too serious. Updated the version to 1.
 After weeks of testing the program version 1.0 is now finaly released. DISCInfo is highly updated version of my <a href="http://hijacker.rpc1.com/toshiba/">Toshiba Revision Check</a> program wich worked only for IDE Toshiba PCDVD devices. This new program works for all CD/DVD devices and show all the possible informations of the device. It probably still have some bugs but I know you all will tell me about them as soon when you find them ;).
 <br><br>
 <font size="+2"><a name=History></a><b>History:</b></font><br><br>
+<b>- 11.03.2006 - version 1.6.1</b><br>
+- Fixed a bug in recognition of some 5XXX models<br>
+- Added recognition of VOS CPU Toshiba drives.<br>
+- Added reading of a two letter OEM code from TSSTCorp/Samsung/Toshiba drives.<br>
+<br>
 <b>- 21.02.2006 - version 1.6.0</b><br>
 - Added lots of new Toshiba models<br>
 - Added a Capture button next to minimize button on top of title bar. If pressed it will take screenshot of itself.<br>
@@ -77,10 +83,6 @@ Fixed a bug when you save to file and only have one CD/DVD device. It would put 
 <br><br>
 <b>- 11.01.2003 - version 1.0</b><br>
 First release...
-<br><br>
-<font size="+2"><a name=Download></a><b>Download:</b></font><br><br>
-o <a href=download.php?DISCInfo160.zip>DISCInfo 1.6.0</a> (<b><? echo download_count("DISCInfo160.zip") ?></b> downloads in total)<br>
-o <a href=download.php?aspi32v4.60.zip>ASPI layer drives 4.60 Win9x/Me/2k/XP</a> (<b><? echo download_count("aspi32v4.60.zip") ?></b> downloads in total)<br>
 <br><br>
 <font size="+2"><a name=About></a><b>About this program:</b></font><br><br>
 DISCInfo is a <b>freeware</b> program to display hardware informations from and ATAPI/SCSI device under Windows operating system. Basicly what it does it that it sends SCSI commands to the device and retrives the information from them. The most usefull thing of the program is to show usefull informations about a DVD-ROM devices. It can check current region status. If the drive is region free it will state No Lock Detected but if the drive has region protection (RPC-2) it will show you the currect settings, like how many changes are left and curently set region. With the latest version program is also capable of using identified info about a CD/DVD drive to pass parameters to main firmware page and look for the firmware update files on it. It can recognise external USB/Firewire HDD/CD/DVD devices (SPTI access only) and for easy sharing of the files it enabled grabing the screenshots of the program and internaly save them to a file without any extra image manipulation tools.

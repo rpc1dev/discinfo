@@ -1,10 +1,10 @@
 object Main_Form: TMain_Form
-  Left = 854
-  Top = 571
+  Left = 694
+  Top = 355
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'DISCInfo'
-  ClientHeight = 242
+  Caption = 'DISCInfo 1.X.X'
+  ClientHeight = 251
   ClientWidth = 294
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -15,13 +15,14 @@ object Main_Form: TMain_Form
   Menu = MainMenu1
   OldCreateOrder = False
   Position = poScreenCenter
+  OnResize = FormResize
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
     Left = 0
     Top = 0
     Width = 294
-    Height = 242
+    Height = 251
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
@@ -103,6 +104,7 @@ object Main_Form: TMain_Form
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          OnDblClick = versionDblClick
         end
         object date: TLabel
           Left = 112
@@ -360,11 +362,6 @@ object Main_Form: TMain_Form
         Caption = '&Save CD/DVD Info'
         ShortCut = 16467
         OnClick = SaveData1Click
-      end
-      object TakeScreenshot1: TMenuItem
-        Caption = '&Grab Screenshot'
-        ShortCut = 16455
-        OnClick = TakeScreenshot1Click
       end
       object N1: TMenuItem
         Caption = '-'

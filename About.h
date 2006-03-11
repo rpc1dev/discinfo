@@ -26,19 +26,15 @@ __published:	// IDE-managed Components
         TLabel *Label7;
         TLabel *Label8;
         TLabel *Label9;
-        TLabel *Label10;
         TPanel *Panel2;
         TPanel *Panel3;
         TPanel *Panel4;
         TPanel *Panel5;
-    TImage *Image1;
-    TGroupBox *GroupBox2;
         void __fastcall About_CloseClick(TObject *Sender);
         void __fastcall FormCreate(TObject *Sender);
         void __fastcall Label3Click(TObject *Sender);
         void __fastcall Label8Click(TObject *Sender);
         void __fastcall Label5Click(TObject *Sender);
-    void __fastcall Image1Click(TObject *Sender);
     void __fastcall BitBtn1KeyPress(TObject *Sender, char &Key);
 private:	// User declarations
 public:		// User declarations

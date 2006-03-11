@@ -6,18 +6,18 @@
     <PROJECT value="DISCInfo.exe"/>
     <OBJFILES value="DISCInfo.obj CDVDMain.obj Aspi.obj Device.obj StdAfx.obj About.obj 
       Extra.obj Searchf.obj Summary.obj"/>
-    <RESFILES value="DISCInfo.res"/>
+    <RESFILES value="DISCInfo.res Foto.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
     <DEFFILE value=""/>
     <RESDEPEN value="$(RESFILES) CDVDMain.dfm About.dfm Extra.dfm Searchf.dfm Summary.dfm"/>
     <LIBFILES value=""/>
-    <LIBRARIES value="versioninfo.lib pnglib.lib rtl.lib vcl.lib"/>
-    <SPARELIBS value="vcl.lib rtl.lib pnglib.lib versioninfo.lib"/>
-    <PACKAGES value="vcl.bpi rtl.bpi dbrtl.bpi adortl.bpi vcldb.bpi vclx.bpi bdertl.bpi 
-      ibxpress.bpi dsnap.bpi cds.bpi bdecds.bpi qrpt.bpi visualclx.bpi 
-      visualdbclx.bpi dsnapcrba.bpi dsnapcon.bpi bcbsmp.bpi vclie.bpi xmlrtl.bpi 
-      inet.bpi inetdbbde.bpi inetdbxpress.bpi nmfast.bpi webdsnap.bpi bcbie.bpi 
+    <LIBRARIES value="pngbuilder.lib versioninfo.lib pnglib.lib rtl.lib vcl.lib"/>
+    <SPARELIBS value="vcl.lib rtl.lib pnglib.lib versioninfo.lib pngbuilder.lib"/>
+    <PACKAGES value="vcl.bpi rtl.bpi dbrtl.bpi vcldb.bpi vclx.bpi bdertl.bpi ibxpress.bpi 
+      dsnap.bpi cds.bpi bdecds.bpi qrpt.bpi visualclx.bpi visualdbclx.bpi 
+      dsnapcrba.bpi dsnapcon.bpi bcbsmp.bpi vclie.bpi xmlrtl.bpi inet.bpi 
+      inetdbbde.bpi inetdbxpress.bpi nmfast.bpi webdsnap.bpi bcbie.bpi 
       websnap.bpi soaprtl.bpi dclocx.bpi dbexpress.bpi dbxcds.bpi indy.bpi 
       bcb2kaxserver.bpi vcl.bpi"/>
     <PATHCPP value=".;"/>
@@ -39,8 +39,7 @@
     <IDLCFLAGS value="-I..\..\Examples\Controls\VersionInfo -I$(BCB)\Projects 
       -I$(BCB)\Projects\DISCInfo -I$(BCB)\include -I$(BCB)\include\vcl 
       -src_suffix cpp -D_DEBUG -boa"/>
-    <CFLAG1 value="-Od -H=$(BCB)\lib\vcl60.csm -Hc -Vx -Ve -X- -r- -a8 -b- -k -y -v -vi- -c 
-      -tW -tWM"/>
+    <CFLAG1 value="-Od -H=$(BCB)\lib\vcl60.csm -Hc -Vx -Ve -X- -r- -a8 -b- -k -vi -c -tW -tWM"/>
     <PFLAGS value="-$YD -$W -$O- -$A8 -v -JPHNE -M"/>
     <RFLAGS value=""/>
     <AFLAGS value="/mx /w2 /zd"/>
@@ -64,6 +63,7 @@
       <FILE FILENAME="Extra.cpp" FORMNAME="Extra_Box" UNITNAME="Extra" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="Searchf.cpp" FORMNAME="Search_Box" UNITNAME="Searchf" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="Summary.cpp" FORMNAME="SumInfo" UNITNAME="Summary" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="Foto.res" FORMNAME="" UNITNAME="Foto.res" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
   </FILELIST>
   <BUILDTOOLS>
   </BUILDTOOLS>
@@ -73,9 +73,9 @@
 IncludeVerInfo=1
 AutoIncBuild=1
 MajorVer=1
-MinorVer=5
-Release=0
-Build=7
+MinorVer=6
+Release=1
+Build=4
 Debug=0
 PreRelease=0
 Special=0
@@ -87,7 +87,7 @@ CodePage=1250
 [Version Info Keys]
 CompanyName=Hijacker d.o.o.
 FileDescription=Informations about IDE/SCSI devices
-FileVersion=1.5.0.7
+FileVersion=1.6.1.4
 InternalName=
 LegalCopyright=Hijacker inc
 LegalTrademarks=
@@ -97,7 +97,12 @@ ProductVersion=1.0.0.0
 Comments=
 
 [Excluded Packages]
-d:\cbuilder6\Bin\dclite60.bpl=Borland Integrated Translation Environment
+c:\cbuilder6\Bin\dclado60.bpl=Borland ADO DB Components
+c:\cbuilder6\Bin\dclbde60.bpl=Borland BDE DB Components
+c:\cbuilder6\Bin\dcltee60.bpl=TeeChart Components
+c:\cbuilder6\Bin\dcldss60.bpl=Borland Decision Cube Components
+c:\cbuilder6\Bin\dcltqr60.bpl=TeeChart for QuickReport Components
+c:\cbuilder6\Bin\DBWEBXPRT.BPL=Borland Web Wizard Package
 
 [HistoryLists\hlIncludePath]
 Count=2
@@ -142,5 +147,10 @@ LinkCGLIB=0
 AddServerUnit=1
 AddClientUnit=1
 PrecompiledHeaders=1
+
+[Language]
+ActiveLang=
+ProjectLang=
+RootDir=
   </IDEOPTIONS>
 </PROJECT>
