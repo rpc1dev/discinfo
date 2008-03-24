@@ -1,3 +1,5 @@
+- 21.03.2008 - version 1.7.0
+
 - 11.03.2006 - version 1.6.1
 Fixed a bug in recognition of some 5XXX models
 Added recognition of VOS CPU Toshiba drives.
