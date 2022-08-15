@@ -1,3 +1,7 @@
+- 17.01.2003 - version 1.2.0
+Fixed the text corruption if the Toshiba drive was "SD-M1612 revB" or "SD-C2612".
+Fixed improper showing of read/write speed if this information can't be read out of the drive.
+
 - 12.01.2003 - version 1.0.1
 Fixed a bug when you save to file and only have one CD/DVD device. It would put the spliting string on the top. This is now fixed. 
 

@@ -1,0 +1,84 @@
+<html>
+<head>
+<title>DISCInfo -> DVD-IDE-SCSI-CD Information Program</title>
+</head>
+<body>
+<span style='font-family:Verdana'><div style="text-align:justify">
+<center><font size="+3"><a name=Top></a><b>DISCInfo</font><br><i>(DVD-IDE-SCSI-CD Information Program)</i></b>
+<br><br><i>Made by <a href=http://forum.firmware-flash.com/profile.php?mode=viewprofile&u=2>Hijacker</a></i>
+<br>Last update: 17.01.2003</center><br><br>
+<font size="+2"><b>Index:</b></font><br><br>
+o <a href="#History">History</a><br>
+o <a href="#Download">Download</a><br>
+o <a href="#About">About this program</a><br>
+o <a href="#Howto">How to</a><br>
+o <a href="#Reports">Saved reports for CD/DVD drives</a><br>
+o <a href="#FAQ">FAQ</a><br>
+o <a href="#Credits">Credits</a><br>
+o <a href="#Donate">Donations</a><br><br>
+<font size="+2"><a name=History></a><b>History:</b></font><br><br>
+<b>- 17.01.2003 - version 1.2.0</b><br>
+Fixed the text corruption if the Toshiba drive was "SD-M1612 revB" or "SD-C2612".<br>
+Fixed improper showing of read/write speed if this information can't be read out of the drive.<br><br>
+<b>- 12.01.2003 - version 1.0.1</b><br>
+Fixed a bug when you save to file and only have one CD/DVD device. It would put the spliting string on the top. This is now fixed.
+<br><br>
+<b>- 11.01.2003 - version 1.0</b><br>
+First release...
+<br><br>
+<font size="+2"><a name=Download></a><b>Download:</b></font><br><br>
+o <a href=http://www.firmware-flash.com/~hijacker/discinfo/DISCInfo120.zip>DISCInfo 1.2.0</a><br>
+o <a href=http://www.firmware-flash.com/~hijacker/discinfo/aspi32v4.60.zip>ASPI layer drives 4.60 Win9x/Me/2k/XP</a><br>
+<br><br>
+<font size="+2"><a name=About></a><b>About this program:</b></font><br><br>
+DISCInfo is a program to display hardware informations from and IDE/SCSI device under Windows operating system. Basicly what it does it that it sends SCSI commands to the device and retrives the information from them. The most usefull thing of the program is to show usefull informations about a DVD-ROM devices. It can check current region status. If the drive is region free it will state No Lock Detected but if the drive has region protection (RPC-2) it will show you the currect settings, like how many changes are left and curently set region.
+<br><br>
+<font size="+2"><a name=Howto></a><b>How to:</b></font><br><br>
+It's extremly easy to use the program so I do not think any explanations are required but if you have problems with it tell it to me and I will explain it in here with more details...<br><br>Just to worm up the crowd here are the keyboard shortcuts I've put inside the program:<br>
+<b>- D or CTRL+D: Show All Devices - </b>This refreshes the program to display all the IDE/SCSI devices inside the system and not only CD or DVD drives. Press D or CTRL+D to show back only CD/DVD drives.<br>
+<b>- C or CTRL+C: Capabilities Info - </b>Displays a capabilities page for a CD or DVD drive only. In that page you can see what a drive is capable of reading or writing. This command only works for CD or DVD drives.<br>
+<b>- S or CTRL+S: Save CD/DVD Info - </b>Shows a save window wich will save the informations about CD/DVD drives into a file.<br>
+<b>- A or CTRL+A: About Box - </b>Display a nicely made About box ;o).<br>
+<b>- X or CTRL+X or ESCAPE: Program exit - </b>To close the program.<br>
+<br><br>
+<font size="+2"><a name=Reports></a><b>Saved reports for CD/DVD drives:</b></font><br><br>
+You can save the information about your CD/DVD drives into a file. Just do a <b>File->Save CD/DVD Info</b> from the menu and type in a name for the file. Please <a href="mailto:hijacker@firmware-flash.com?Subject=DISCInfo Report File">send me this files</a>. I will make a big internet database for the CD/DVD drives out of them. I have allready done the same for my <a href="http://forum.firmware-flash.com/toshiba.php">Toshiba Revision Check</a> program from the files users send me. The same I plan to do with DISCInfo program.<br>
+Still need to make proper web script for it but you can allready send me the files. Thanks.
+<br><br>
+<font size="+2"><a name=FAQ></a><b>FAQ:</b></font><br><br>
+Q: <b>I get an ASPI error.</b><br>
+A: <i>Just as the errors say. You need ASPI drivers in order to run this program. You can download them under <a href="#Download">download</a> section.</i>
+<br><br>
+Q: <b>The informations I get are completly wrong!!!</b><br>
+A: <i>Yes. This could happen. Number one reason is that you have a little program called Region Killer running in the background. That program is soo good in fooling program to belive that they are region protected. And it also fools my program. Disable it before running DISCInfo.</i>
+<br><br>
+Q: <b>How does your program work?</b><br>
+A: <i>It sends some commands to the drive and shows the informations that the drive returns back in a way that anyone can understand them. Simple as that.</i>
+<br><br>
+Q: <b>Do I have to pay for this program?</b><br>
+A: <i>Nope. Never. Program if freeware. But you can donate some money to us to keep the firmware page alive.</i>
+<br><br>
+Q: <b>I have found a bug! What can I do about it?</b><br>
+A: <i>Great! I love bugs. What are you waiting for and loosing time? <a href="mailto:hijacker@firmware-flash.com?Subject=DISCInfo Bug Report">Email me</a> about it and I will try to fix it ASAP.</i>
+<br><br>
+Q: <b>In what operating systems the program works?</b><br>
+A: <i>Has been tested on Windows 98 and Windows XP. Should work on all windows version as long as ASPI drivers are installed.</i>
+<br><br>
+<font size="+2"><a name=Credits></a><b>Credits:</b></font><br><br>
+- Big thanks a stuborn old bastard :o) He knows who he is...<br>
+- Thanks to friends on the firmware page: Arzeno, >NIL:, dhc014, FLASHMAN<br>
+- Thanks to Klaus Jensen (author of the CDVDInfo program)<br>
+- Thanks to Cigo who helped me fix some bugs<br>
+- And all the testers who dared to test my beta versions ;o)<br><br>
+<font size="+2"><a name=Donate></a><b>Donations:</b></font><br><br>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post"> 
+<input type="hidden" name="cmd" value="_xclick"> 
+<input type="hidden" name="business" value="farzeno@wanadoo.fr"> 
+<input type="hidden" name="item_name" value="The firmware page"> 
+<input type="image" src="http://images.paypal.com/images/x-click-butcc-donate.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!"> 
+</form>
+<a href="#Top">Go to top of the page</a>
+</div>
+</span>
+</body>
+</html>
